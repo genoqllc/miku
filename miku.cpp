@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <string>
 #include "daisy_seed.h"
 #include "dev/oled_ssd130x.h"
 
@@ -16,6 +17,16 @@ MidiUartHandler midi;
 FIFO<MidiEvent, 128> event_log;
 
 const int ROW_SPACING_PX = 2;
+
+// array mapping of midi note value (0-127) to english name
+
+
+const std::string notes[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+
+std::string GetNameFromNoteNumber(int note) {
+    return notes[note % 12] + std::to_string(note / 12 - 1);
+}
+
 
 const bool PORTAL_LOGO[64][64] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -88,17 +99,17 @@ void GetMidiTypeAsString(MidiEvent& msg, char* str)
 {
     switch(msg.type)
     {
-        case NoteOff: strcpy(str, "NoteOff"); break;
-        case NoteOn: strcpy(str, "NoteOn"); break;
-        case PolyphonicKeyPressure: strcpy(str, "PolyKeyPres"); break;
+        case NoteOff: strcpy(str, "NtOf"); break;
+        case NoteOn: strcpy(str, "NtOn"); break;
+        case PolyphonicKeyPressure: strcpy(str, "PolyPres"); break;
         case ControlChange: strcpy(str, "CC"); break;
-        case ProgramChange: strcpy(str, "ProgChange"); break;
-        case ChannelPressure: strcpy(str, "ChnPressure"); break;
-        case PitchBend: strcpy(str, "PitchBend"); break;
-        case SystemCommon: strcpy(str, "SysCommon"); break;
-        case SystemRealTime: strcpy(str, "SysRealtime"); break;
-        case ChannelMode: strcpy(str, "ChnMode"); break;
-        default: strcpy(str, "Unknown"); break;
+        case ProgramChange: strcpy(str, "PgChg"); break;
+        case ChannelPressure: strcpy(str, "ChPres"); break;
+        case PitchBend: strcpy(str, "PBend"); break;
+        case SystemCommon: strcpy(str, "SysCM"); break;
+        case SystemRealTime: strcpy(str, "SysRT"); break;
+        case ChannelMode: strcpy(str, "ChMd"); break;
+        default: strcpy(str, "Unk"); break;
     }
 }
 
@@ -238,7 +249,14 @@ int main(void)
                     auto msg = event_log.PopFront();
                     char type_str[16];
                     GetMidiTypeAsString(msg, type_str);
-                    sprintf(outstr, "tp:%s, ch:%d", type_str, msg.channel);
+                    
+                    if (msg.type == NoteOn || msg.type == NoteOff) {
+                        std::string noteName = GetNameFromNoteNumber(msg.data[0]);
+                        sprintf(outstr, "tp:%s ch:%d %s", type_str, msg.channel, noteName.c_str());
+                    }
+                    else {
+                        sprintf(outstr, "tp:%s ch:%d", type_str, msg.channel);
+                    }
                     draw_string(0, 20 + (row_index * 10), outstr);
                 }
             }
