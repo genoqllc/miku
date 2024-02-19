@@ -210,10 +210,18 @@ int main(void)
              */
             switch(msg.type)
             {
+                // TODO properly calculate channel based on incoming message
                 case NoteOn:
-                    // Do something on Note On events
                     {
                         uint8_t bytes[3] = {0x90, 0x00, 0x00};
+                        bytes[1] = msg.data[0];
+                        bytes[2] = msg.data[1];
+                        midi.SendMessage(bytes, 3);
+                    }
+                    break;
+                case NoteOff:
+                    {
+                        uint8_t bytes[3] = {0x80, 0x00, 0x00};
                         bytes[1] = msg.data[0];
                         bytes[2] = msg.data[1];
                         midi.SendMessage(bytes, 3);
@@ -252,10 +260,10 @@ int main(void)
                     
                     if (msg.type == NoteOn || msg.type == NoteOff) {
                         std::string noteName = GetNameFromNoteNumber(msg.data[0]);
-                        sprintf(outstr, "tp:%s ch:%d %s", type_str, msg.channel, noteName.c_str());
+                        sprintf(outstr, "%s ch%d %s", type_str, msg.channel + 1, noteName.c_str());
                     }
                     else {
-                        sprintf(outstr, "tp:%s ch:%d", type_str, msg.channel);
+                        sprintf(outstr, "%s ch%d", type_str, msg.channel + 1);
                     }
                     draw_string(0, 20 + (row_index * 10), outstr);
                 }
