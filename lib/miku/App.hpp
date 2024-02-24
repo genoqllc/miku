@@ -8,14 +8,19 @@
 
 #include "daisy_seed.h"
 #include "tasks/Task.hpp"
-#include "ux/screens/SplashScreen.hpp"
+
 #include "ux/Display.hpp"
 #include "ux/Callbacks.hpp"
+
+#include "ux/screens/SplashScreen.hpp"
+#include "ux/screens/PotTestScreen.hpp"
 
 #include "ux/screens/TestScreen.hpp"
 
 #include "tasks/hardware/ScreenButtonTask.hpp"
-#include "adc/IHasAdcPins.hpp"
+#include "tasks/hardware/BlinkyLedTask.hpp"
+#include "tasks/hardware/LinearPotentiometerTask.hpp"
+
 
 namespace miku {
     /// @brief The top level application container. Has tasks that do work and screens that show the result of that work.
@@ -33,23 +38,52 @@ namespace miku {
 
                 this->buildScreens();
                 this->buildTasks();
+
+                this->initAdc();
+
+                this->enableTasks();
+            }
+
+            void enableTasks() {
+                for (miku::tasks::Task* task : this->tasks) {
+                    if (task != nullptr) {
+                        task->Enable();
+                    }
+                }
             }
 
             void initAdc() {
                 daisy::AdcChannelConfig adcConfig;
+
+                unsigned int configuredChannelCount = 0;
+                int taskIndex = 0;
+
+                display->Fill(false);
                 
-                for (unsigned int taskIndex = 0; taskIndex < this->tasks.size(); taskIndex++) {
-                    miku::tasks::Task* task = this->tasks[taskIndex];
+                for (miku::tasks::Task* task : this->tasks) {
+                    char buffer[32];
                     if (task != nullptr) {
-                        std::vector<int> adcPins = task->GetAdcPins();
-                        for (std::size_t taskIndex = 0; taskIndex < adcPins.size(); taskIndex++) {
-                            adcConfig.InitSingle(hardware.GetPin(adcPins[taskIndex]));
+                        display->DrawStringByRow(taskIndex, 0, task->GetCode());                    
+
+                        for (unsigned short adcPin : *task->GetAdcPins()) {
+                            sprintf(buffer, "%d", adcPin);
+                            display->DrawStringByRow(taskIndex, 15, buffer);
+
+                            adcConfig.InitSingle(hardware.GetPin(adcPin));
+                            task->GetAdcChannelIndices()->push_back(configuredChannelCount);
+                            configuredChannelCount++; // indices are 0 based, so we need to increment after we've used the value
                         }
                     }
+
+                    taskIndex++;
                 }
 
-                this->hardware.adc.Init(&adcConfig, 1);
+                this->hardware.adc.Init(&adcConfig, configuredChannelCount);
                 this->hardware.adc.Start();
+
+                display->Invalidate();
+
+                hardware.system.Delay(5000);
             }
 
             /// @brief Main while loop of the application
@@ -61,6 +95,9 @@ namespace miku {
                 splashScreen->Render();
                 this->GetDisplay()->Invalidate();
                 daisy::System::Delay(splashDuration);
+                
+                this->GetDisplay()->Fill(false);
+                this->GetDisplay()->Invalidate();
 
                 unsigned long lastRender = daisy::System::GetNow();
 
@@ -83,8 +120,6 @@ namespace miku {
                     if (this->GetDisplay()->NeedsInvalidate()) {
                         this->GetDisplay()->Invalidate();
                     }
-
-                    this->GetDisplay()->ResetInvalidate();
                 }
             }
 
@@ -106,14 +141,9 @@ namespace miku {
 
             /// @brief Walk our registered screens & tasks and see if any need to be executed. If so, execute them.
             void checkTasks() {
-                unsigned long now = daisy::System::GetNow();
-
                 for (unsigned int taskIndex = 0; taskIndex < this->tasks.size(); taskIndex++) {
                     miku::tasks::Task* task = this->tasks[taskIndex];
-                    if (task != nullptr && task->IsEnabled() && task->TimerLapsed(now)) {
-                        char buffer[32];
-                        sprintf(buffer, "exec task %d %lu", taskIndex, now);
-                        this->GetDisplay()->DrawStringByRow(5, 0, buffer);
+                    if (task != nullptr && task->IsEnabled() && task->TimerLapsed()) {
                         task->Execute();
 
                         for(auto& it : task->GetDataValues()) {
@@ -125,24 +155,21 @@ namespace miku {
 
             void buildScreens() {
                 this->screens = std::vector<ux::Screen*> {
+                    new miku::ux::screens::PotTestScreen {
+                        this->GetDisplay()
+                    },
                     new miku::ux::screens::TestScreen{
                         this->GetDisplay(),
                         "Screen 1"
-                    },
-                    new miku::ux::screens::TestScreen{
-                        this->GetDisplay(),
-                        "Screen 2"
-                    },
-                    new miku::ux::screens::TestScreen{
-                        this->GetDisplay(),
-                        "Screen THREE"
                     }
                 };
             }
 
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
-                    new miku::tasks::hardware::ScreenButtonTask(hardware, 28)
+                    new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
+                    new miku::tasks::hardware::BlinkyLedTask(hardware),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21)
                 };
             }
 

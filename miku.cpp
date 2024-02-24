@@ -2,27 +2,27 @@
 #include <string.h>
 #include <string>
 #include "daisy_seed.h"
-#include "dev/oled_ssd130x.h"
+// #include "dev/oled_ssd130x.h"
 
-#include "lib/miku/ux/Resources.hpp"
-#include "lib/miku/adc/potentiometer.hpp"
-#include "lib/miku/midi/midi.hpp"
+// #include "lib/miku/ux/Resources.hpp"
+// #include "lib/miku/adc/potentiometer.hpp"
+// #include "lib/miku/midi/midi.hpp"
 
-#include "lib/miku/ux/Callbacks.hpp"
+// #include "lib/miku/ux/Callbacks.hpp"
 #include "lib/miku/App.hpp"
 
-using namespace daisy;
+//using namespace daisy;
 
 // using MyOledDisplay = OledDisplay<SSD130xI2c128x64Driver>;
 
-DaisySeed     hw;
-//MyOledDisplay display;
-MidiUartHandler midi;
+// DaisySeed     hw;
+// //MyOledDisplay display;
+// MidiUartHandler midi;
 
-/** FIFO to hold messages as we're ready to print them */
-FIFO<MidiEvent, 128> event_log;
+// /** FIFO to hold messages as we're ready to print them */
+// FIFO<MidiEvent, 128> event_log;
 
-const int ROW_SPACING_PX = 2;
+// const int ROW_SPACING_PX = 2;
 
 // array mapping of midi note value (0-127) to english name
 
@@ -43,7 +43,9 @@ int main(void)
     //hw.Init();
     // hw.StartLog();
 
-    theApp = new miku::App(hw);
+    daisy::DaisySeed hardware;
+
+    theApp = new miku::App(hardware);
     theApp->Run();
 
     // AdcChannelConfig adcConfig;
@@ -193,10 +195,6 @@ int main(void)
     //         sprintf(tick_tock_buffer, "%c", tick_tock ? '\\' : '/');
     //         draw_string(120, 0, tick_tock_buffer);
     //         tick_tock = !tick_tock;
-
-    //         event_timers[EV_BLINK_LED] = now;
-    //         hw.SetLed(led_state);
-    //         led_state = !led_state;
 
     //         displayNeedsUpdate = true;
     //     }

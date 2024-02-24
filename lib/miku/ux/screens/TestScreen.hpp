@@ -23,17 +23,20 @@ namespace miku::ux::screens {
                 this->GetDisplay()->DrawStringByRow(2, 0, someString.c_str());
 
                 char buffer[32];
+
+                sprintf(buffer, "DVC: %d", this->dataValues.size());
+                this->GetDisplay()->DrawStringByRow(2, 64, buffer);
+
                 sprintf(buffer, "Bound: %.3f", this->dataValues["SCREEN_BUTTON_PRESSED"]);
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
-                sprintf(buffer, "%lu", daisy::System::GetNow());
+                sprintf(buffer, "DBT: %.3f", this->dataValues["SCREEN_BUTTON_TICK"]);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
-                this->GetDisplay()->RequestInvalidate();
-            }
+                sprintf(buffer, "LED: %.1f", this->dataValues["LED_STATE"]);
+                this->GetDisplay()->DrawStringByRow(5, 0, buffer);
 
-            void RegisterTasks() {
-                // We don't have any tasks to register
+                this->GetDisplay()->RequestInvalidate();
             }
 
             std::vector<miku::tasks::Task*> GetTasks() {

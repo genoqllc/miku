@@ -24,7 +24,7 @@ namespace miku::ux {
             virtual void Render() = 0;
 
             virtual void DataBind(std::map<std::string, float> data) {
-
+                this->dataValues = data;
             }
 
             /// @brief 

@@ -2,18 +2,20 @@
 #ifndef MIKU_TASKS_TASK_HPP
 #define MIKU_TASKS_TASK_HPP
 
-#include "../adc/IHasAdcPins.hpp"
-
 namespace miku::tasks {
-    class Task : public adc::IHasAdcPins {
+    class Task {
         public:
-            Task(daisy::DaisySeed hardware, long timeout, bool enabled = true) {
+            Task(daisy::DaisySeed hardware, std::string code, long timeout, bool enabled = true) {
                 this->timeout = timeout;
                 this->enabled = enabled;
                 this->dataValues = std::map<std::string, float>();
+                this->hardware = hardware;
+                this->code = code;
             }
 
-            virtual void Execute() = 0;
+            virtual void Execute() {
+                this->lastExecution = hardware.system.GetNow();
+            }
 
             void SetTimeout(int timeout) {
                 this->timeout = timeout;
@@ -27,9 +29,16 @@ namespace miku::tasks {
                 return this->enabled;
             }
 
-            bool TimerLapsed(unsigned long currentTime) {
-                if (this->enabled && currentTime - this->lastExecution >= this->timeout) {
-                    this->lastExecution = currentTime;
+            void Enable() {
+                this->enabled = true;
+            }
+            
+            void Disable() {
+                this->enabled = false;
+            }
+
+            bool TimerLapsed() {
+                if (this->enabled && hardware.system.GetNow() - this->lastExecution >= this->timeout) {
                     return true;
                 }
                 return false;
@@ -38,12 +47,28 @@ namespace miku::tasks {
             std::map<std::string, float> GetDataValues() {
                 return this->dataValues;
             }
+
+            virtual std::vector<int>* GetAdcPins() {
+                return &this->adcPins;
+            }
+
+            std::vector<unsigned short>* GetAdcChannelIndices() {
+                return &this->adcChannelIndices;
+            }
+
+            std::string GetCode() {
+                return this->code;
+            }
         protected:
             std::map<std::string, float> dataValues;
+            daisy::DaisySeed hardware;
+            std::vector<int> adcPins = std::vector<int>();
+            std::vector<unsigned short> adcChannelIndices = std::vector<unsigned short>();
+            std::string code;
         private:
             unsigned long timeout;
             unsigned long lastExecution = -1;
-            bool enabled = true;
+            bool enabled = false;
     };
 }
 
