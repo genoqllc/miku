@@ -10,7 +10,6 @@
 #include "tasks/Task.hpp"
 
 #include "ux/Display.hpp"
-#include "ux/Callbacks.hpp"
 
 #include "ux/screens/SplashScreen.hpp"
 #include "ux/screens/PotTestScreen.hpp"
