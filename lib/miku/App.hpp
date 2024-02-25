@@ -2,24 +2,28 @@
 #ifndef MIKU_UX_APP_HPP
 #define MIKU_UX_APP_HPP
 
+// Standard Library
 #include <vector>
 #include <string>
 #include <map>
 
+// Hardware
 #include "daisy_seed.h"
-#include "tasks/Task.hpp"
 
+// UX Core
+#include "tasks/Task.hpp"
 #include "ux/Display.hpp"
 
+// Screens
 #include "ux/screens/SplashScreen.hpp"
-#include "ux/screens/PotTestScreen.hpp"
-
 #include "ux/screens/TestScreen.hpp"
+#include "ux/screens/PotTestScreen.hpp"
+#include "ux/screens/ButtonTestScreen.hpp"
 
+// Tasks
 #include "tasks/hardware/ScreenButtonTask.hpp"
 #include "tasks/hardware/BlinkyLedTask.hpp"
 #include "tasks/hardware/LinearPotentiometerTask.hpp"
-
 
 namespace miku {
     /// @brief The top level application container. Has tasks that do work and screens that show the result of that work.
@@ -52,37 +56,31 @@ namespace miku {
             }
 
             void initAdc() {
-                daisy::AdcChannelConfig adcConfig;
+                daisy::AdcChannelConfig adcConfigs[16];
 
-                unsigned int configuredChannelCount = 0;
-                int taskIndex = 0;
+                unsigned short configuredChannelCount = 0;
 
                 display->Fill(false);
                 
                 for (miku::tasks::Task* task : this->tasks) {
-                    char buffer[32];
                     if (task != nullptr) {
-                        display->DrawStringByRow(taskIndex, 0, task->GetCode());                    
+                        short adcPin = task->GetAdcPin();
 
-                        for (unsigned short adcPin : *task->GetAdcPins()) {
-                            sprintf(buffer, "%d", adcPin);
-                            display->DrawStringByRow(taskIndex, 15, buffer);
+                        if (adcPin >= 0) {
+                            adcConfigs[configuredChannelCount].InitSingle(hardware.GetPin(adcPin));
+                            task->SetAdcChannelIndex(configuredChannelCount);
 
-                            adcConfig.InitSingle(hardware.GetPin(adcPin));
-                            task->GetAdcChannelIndices()->push_back(configuredChannelCount);
-                            configuredChannelCount++; // indices are 0 based, so we need to increment after we've used the value
+                            display->DrawStringByRow(configuredChannelCount, 0, "ADC " + task->GetCode() + std::to_string(adcPin) + " " + std::to_string(configuredChannelCount));
+                            configuredChannelCount++;
                         }
                     }
-
-                    taskIndex++;
                 }
 
-                this->hardware.adc.Init(&adcConfig, configuredChannelCount);
-                this->hardware.adc.Start();
-
                 display->Invalidate();
-
                 hardware.system.Delay(5000);
+
+                this->hardware.adc.Init(adcConfigs, configuredChannelCount);
+                this->hardware.adc.Start();
             }
 
             /// @brief Main while loop of the application
@@ -153,8 +151,11 @@ namespace miku {
             }
 
             void buildScreens() {
-                this->screens = std::vector<ux::Screen*> {
+                this->screens = std::vector<ux::Screen*> {                    
                     new miku::ux::screens::PotTestScreen {
+                        this->GetDisplay()
+                    },
+                    new miku::ux::screens::ButtonTestScreen {
                         this->GetDisplay()
                     },
                     new miku::ux::screens::TestScreen{
@@ -168,7 +169,8 @@ namespace miku {
                 this->tasks = std::vector<miku::tasks::Task*> {
                     new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
                     new miku::tasks::hardware::BlinkyLedTask(hardware),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21)
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_NOTE"),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SCRN")
                 };
             }
 

@@ -6,44 +6,45 @@
 namespace miku::tasks::hardware {
     class LinearPotentiometerTask : public Task {
         public:
-            LinearPotentiometerTask(daisy::DaisySeed hardware, unsigned short pin) : Task(hardware, "PT", 50UL) {
-                // TODO support multiple pots?
-                this->GetAdcPins()->push_back(pin);
+            LinearPotentiometerTask(daisy::DaisySeed hardware, unsigned short pin, std::string code) : Task(hardware, code, 50UL) {
+                this->adcPin = pin;
             }
 
             void Execute() {
+                char keyBuffer[32];
                 this->sampleCount++;
 
-                for (unsigned short adcChannelIndex : this->adcChannelIndices) {
-                    this->currentValue = this->hardware.adc.GetFloat(adcChannelIndex);
+                this->currentValue = this->hardware.adc.GetFloat(adcChannelIndex);
 
-                    if (this->currentValue > this->maxValue) {
-                        this->maxValue = this->currentValue;
-                    }
-
-                    if (this->currentValue < this->minValue) {
-                        this->minValue = this->currentValue;
-                    }
-
-                    // TODO error correction/averaging
-                    this->averageValue = (this->averageValue + this->currentValue) / this->sampleCount;
-
-                    char keyBuffer[32];
-                    sprintf(keyBuffer, "POT_%d_CURRENT", adcChannelIndex);
-                    this->dataValues[keyBuffer] = this->currentValue;
-
-                    sprintf(keyBuffer, "POT_%d_MIN", adcChannelIndex);
-                    this->dataValues[keyBuffer] = this->minValue;
-
-                    sprintf(keyBuffer, "POT_%d_MAX", adcChannelIndex);
-                    this->dataValues[keyBuffer] = this->maxValue;
-
-                    sprintf(keyBuffer, "POT_%d_AVG", adcChannelIndex);
-                    this->dataValues[keyBuffer] = this->averageValue;
+                if (this->currentValue > this->maxValue) {
+                    this->maxValue = this->currentValue;
                 }
 
-                this->dataValues["POT_ADC_PIN_CT"] = this->adcPins.size();
-                this->dataValues["POT_ADC_CHANNEL_CT"] = this->adcChannelIndices.size();
+                if (this->currentValue < this->minValue) {
+                    this->minValue = this->currentValue;
+                }
+
+                // TODO error correction/averaging
+                this->averageValue = (this->averageValue + this->currentValue) / this->sampleCount;
+                
+                // TODO figure out if we want to keep this many indicies thing (i think no)
+                sprintf(keyBuffer, "%s_CURRENT", this->code.c_str());
+                this->dataValues[keyBuffer] = this->currentValue;
+
+                sprintf(keyBuffer, "%s_MIN", this->code.c_str());
+                this->dataValues[keyBuffer] = this->minValue;
+
+                sprintf(keyBuffer, "%s_MAX", this->code.c_str());
+                this->dataValues[keyBuffer] = this->maxValue;
+
+                sprintf(keyBuffer, "%s_AVG", this->code.c_str());
+                this->dataValues[keyBuffer] = this->averageValue;
+
+                sprintf(keyBuffer, "%s_ADC_PIN", this->code.c_str());
+                this->dataValues[keyBuffer] = (float)this->adcPin;
+
+                sprintf(keyBuffer, "%s_ADC_CHANNEL", this->code.c_str());
+                this->dataValues[keyBuffer] = (float)this->adcChannelIndex;
 
                 Task::Execute();
             }

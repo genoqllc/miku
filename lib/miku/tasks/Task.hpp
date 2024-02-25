@@ -48,12 +48,24 @@ namespace miku::tasks {
                 return this->dataValues;
             }
 
-            virtual std::vector<int>* GetAdcPins() {
-                return &this->adcPins;
+            // virtual std::vector<int>* GetAdcPins() {
+            //     return &this->adcPins;
+            // }
+
+            // std::vector<unsigned short>* GetAdcChannelIndices() {
+            //     return &this->adcChannelIndices;
+            // }
+
+            short GetAdcPin() {
+                return this->adcPin;
             }
 
-            std::vector<unsigned short>* GetAdcChannelIndices() {
-                return &this->adcChannelIndices;
+            short GetAdcChannelIndex() {
+                return this->adcChannelIndex;
+            }
+
+            void SetAdcChannelIndex(short index) {
+                this->adcChannelIndex = index;
             }
 
             std::string GetCode() {
@@ -62,8 +74,8 @@ namespace miku::tasks {
         protected:
             std::map<std::string, float> dataValues;
             daisy::DaisySeed hardware;
-            std::vector<int> adcPins = std::vector<int>();
-            std::vector<unsigned short> adcChannelIndices = std::vector<unsigned short>();
+            short adcPin = -1;
+            short adcChannelIndex = -1;
             std::string code;
         private:
             unsigned long timeout;

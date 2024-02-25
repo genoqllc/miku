@@ -21,23 +21,23 @@ namespace miku::ux::screens {
                 this->GetDisplay()->Fill();
 
                 char buffer[32];
-                sprintf(buffer, "Cur: %.4f", this->dataValues["POT_0_CURRENT"]);
+                sprintf(buffer, "Cur: %.4f %.4f", this->dataValues["POT_NOTE_CURRENT"], this->dataValues["POT_SCRN_CURRENT"]);
+                this->GetDisplay()->DrawStringByRow(0, 0, buffer);
+
+                sprintf(buffer, "Max: %.4f %.4f", this->dataValues["POT_NOTE_MAX"], this->dataValues["POT_SCRN_MAX"]);
                 this->GetDisplay()->DrawStringByRow(1, 0, buffer);
 
-                sprintf(buffer, "Max: %.4f", this->dataValues["POT_0_MAX"]);
+                sprintf(buffer, "Avg: %.4f %.4f", this->dataValues["POT_NOTE_AVG"], this->dataValues["POT_SCRN_AVG"]);
                 this->GetDisplay()->DrawStringByRow(2, 0, buffer);
 
-                sprintf(buffer, "Avg: %.4f", this->dataValues["POT_0_AVG"]);
+                sprintf(buffer, "Min: %.4f %.4f", this->dataValues["POT_NOTE_MIN"], this->dataValues["POT_SCRN_MIN"]);
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
-                sprintf(buffer, "Min: %.4f", this->dataValues["POT_0_MIN"]);
+                sprintf(buffer, "ADC: %.4f %.4f", this->dataValues["POT_NOTE_ADC_CHANNEL"], this->dataValues["POT_SCRN_ADC_CHANNEL"]);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
-                sprintf(buffer, "ChC: %.1f", this->dataValues["POT_ADC_CHANNEL_CT"]);
+                sprintf(buffer, "PIN: %.4f %.4f", this->dataValues["POT_NOTE_ADC_PIN"], this->dataValues["POT_SCRN_ADC_PIN"]);
                 this->GetDisplay()->DrawStringByRow(5, 0, buffer);
-
-                sprintf(buffer, "PnC: %.1f", this->dataValues["POT_ADC_PIN_CT"]);
-                this->GetDisplay()->DrawStringByRow(5, 64, buffer);
 
                 this->GetDisplay()->RequestInvalidate();
             }
