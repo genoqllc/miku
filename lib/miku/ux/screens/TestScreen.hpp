@@ -36,6 +36,9 @@ namespace miku::ux::screens {
                 sprintf(buffer, "LED: %.1f", this->dataValues["LED_STATE"]);
                 this->GetDisplay()->DrawStringByRow(5, 0, buffer);
 
+                sprintf(buffer, "SIX: %.1f", this->dataValues["SCRN_INDEX"]);
+                this->GetDisplay()->DrawStringByRow(5, 64, buffer);
+
                 this->GetDisplay()->RequestInvalidate();
             }
 

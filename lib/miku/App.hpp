@@ -9,6 +9,7 @@
 
 // Hardware
 #include "daisy_seed.h"
+#include "daisysp.h"
 
 // UX Core
 #include "tasks/Task.hpp"
@@ -103,6 +104,12 @@ namespace miku {
 
                     unsigned long now = daisy::System::GetNow();
 
+                    if (now - lastScreenCheck > 100) {
+                        lastScreenCheck = now;
+                        this->desiredScreenIndex = this->determineDesiredScreenIndex();
+                        this->dataValues["SCRN_INDEX"] = this->determineDesiredScreenIndex();
+                    }
+
                     if (this->desiredScreenIndex != this->currentScreenIndex) {
                         this->currentScreenIndex = desiredScreenIndex;
                         this->currentScreen = screens[currentScreenIndex];
@@ -135,7 +142,6 @@ namespace miku {
                 return this->version;
             }
         private:
-
             /// @brief Walk our registered screens & tasks and see if any need to be executed. If so, execute them.
             void checkTasks() {
                 for (unsigned int taskIndex = 0; taskIndex < this->tasks.size(); taskIndex++) {
@@ -150,28 +156,38 @@ namespace miku {
                 }
             }
 
+            /// @brief Declares the screens that should be available
             void buildScreens() {
-                this->screens = std::vector<ux::Screen*> {                    
+                this->screens = std::vector<ux::Screen*> {   
+                    new miku::ux::screens::TestScreen{
+                        this->GetDisplay(),
+                        "Screen 1"
+                    },                 
                     new miku::ux::screens::PotTestScreen {
                         this->GetDisplay()
                     },
                     new miku::ux::screens::ButtonTestScreen {
                         this->GetDisplay()
-                    },
-                    new miku::ux::screens::TestScreen{
-                        this->GetDisplay(),
-                        "Screen 1"
                     }
                 };
             }
 
+            /// @brief Declares the tasks to run
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
                     new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
                     new miku::tasks::hardware::BlinkyLedTask(hardware),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_NOTE"),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SCRN")
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_NOTE"),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_SCRN")
                 };
+            }
+
+            /// @brief Determines the screen index that should be shown based on the current potentiometer value
+            /// @return The index that should be shown - note, this does NOT set the desired/current screen index
+            unsigned short determineDesiredScreenIndex() {
+                float screenPotCurrent = this->dataValues["POT_SCRN_CURRENT"];
+                // TODO protect against div by zero
+                return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
             }
 
             /// @brief The duration of the splash screen in milliseconds
@@ -182,20 +198,24 @@ namespace miku {
             ux::Display* display;
             /// @brief Flag to indicate that the application should stop running
             bool interrupt = false;
-
+            /// @brief The underlying hardware platform
             daisy::DaisySeed hardware;
-
+            /// @brief Version of the app
             std::string version;
-
+            /// @brief The header screen
             miku::ux::Screen* headerScreen;
-
+            /// @brief The screen index we want to show based on the selection mechanism (current: POT_SCRN)
             unsigned short desiredScreenIndex = 0;
+            /// @brief The screen index that's currently being displayed
             unsigned short currentScreenIndex = -1;
+            /// @brief The screen that's currently being displayed
             miku::ux::Screen* currentScreen;
-
+            /// @brief Tasks registered with the app
             std::vector<miku::tasks::Task*> tasks;
-
+            /// @brief Collection of all data values collected from tasks
             std::map<std::string, float> dataValues;
+
+            unsigned long lastScreenCheck = 0;
     };
 }
 
