@@ -2,6 +2,7 @@
 #include <string.h>
 #include <string>
 #include "daisy_seed.h"
+
 // #include "dev/oled_ssd130x.h"
 
 // #include "lib/miku/ux/Resources.hpp"
@@ -9,8 +10,6 @@
 // #include "lib/miku/midi/midi.hpp"
 
 #include "lib/miku/App.hpp"
-
-// MidiUartHandler midi;
 
 // /** FIFO to hold messages as we're ready to print them */
 // FIFO<MidiEvent, 128> event_log;

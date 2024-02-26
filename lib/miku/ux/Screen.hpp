@@ -39,10 +39,15 @@ namespace miku::ux {
             std::string GetCode() {
                 return this->code;
             }
+
+            DependencyFlags GetDependencyFlags() {
+                return this->dependencyFlags;
+            }
         protected:
             unsigned short left = 0;
             unsigned short top = 0;
             std::map<std::string, float> dataValues;
+            DependencyFlags dependencyFlags = DependencyFlags::None;
         private:
             std::string code;
             Display* display;
