@@ -2,6 +2,8 @@
 #ifndef MIKU_TASKS_TASK_HPP
 #define MIKU_TASKS_TASK_HPP
 
+#include "../Flags.hpp"
+
 namespace miku::tasks {
     class Task {
         public:
@@ -37,7 +39,7 @@ namespace miku::tasks {
                 this->enabled = false;
             }
 
-            bool TimerLapsed() {
+            virtual bool TimerLapsed() {
                 if (this->enabled && hardware.system.GetNow() - this->lastExecution >= this->timeout) {
                     return true;
                 }
@@ -47,14 +49,6 @@ namespace miku::tasks {
             std::map<std::string, float> GetDataValues() {
                 return this->dataValues;
             }
-
-            // virtual std::vector<int>* GetAdcPins() {
-            //     return &this->adcPins;
-            // }
-
-            // std::vector<unsigned short>* GetAdcChannelIndices() {
-            //     return &this->adcChannelIndices;
-            // }
 
             short GetAdcPin() {
                 return this->adcPin;
@@ -71,12 +65,20 @@ namespace miku::tasks {
             std::string GetCode() {
                 return this->code;
             }
+
+            /// @brief A mask that represents the dependencies this Task can fulfill/provide to others
+            /// @return The mask
+            DependencyFlags GetDependenciesProvided() {
+                return this->dependenciesProvided;
+            }
         protected:
             std::map<std::string, float> dataValues;
             daisy::DaisySeed hardware;
             short adcPin = -1;
             short adcChannelIndex = -1;
             std::string code;
+            /// @brief A mask of dependencies that this task provides
+            DependencyFlags dependenciesProvided = DependencyFlags::None;
         private:
             unsigned long timeout;
             unsigned long lastExecution = -1;

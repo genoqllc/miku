@@ -20,11 +20,13 @@
 #include "ux/screens/TestScreen.hpp"
 #include "ux/screens/PotTestScreen.hpp"
 #include "ux/screens/ButtonTestScreen.hpp"
+#include "ux/screens/MidiEventsScreen.hpp"
 
 // Tasks
 #include "tasks/hardware/ScreenButtonTask.hpp"
 #include "tasks/hardware/BlinkyLedTask.hpp"
 #include "tasks/hardware/LinearPotentiometerTask.hpp"
+#include "tasks/hardware/MidiRelayTask.hpp"
 
 namespace miku {
     /// @brief The top level application container. Has tasks that do work and screens that show the result of that work.
@@ -42,6 +44,19 @@ namespace miku {
 
                 this->buildScreens();
                 this->buildTasks();
+
+                // Map screen data dependencies to tasks manually for complex structures
+                for (ux::Screen* screen : this->screens) {
+                    for (miku::tasks::Task* task : this->tasks) {
+                        if (task->GetDependenciesProvided() & screen->GetDependencyFlags() & DependencyFlags::MidiEvents) {
+                            // TODO Make this not gross, but no RTTI so whatever
+                            tasks::hardware::MidiRelayTask* midiTask = (tasks::hardware::MidiRelayTask*)task;
+                            ux::screens::MidiEventsScreen* midiScreen = (ux::screens::MidiEventsScreen*)screen;
+
+                            midiScreen->BindMidiEventLog(midiTask->GetMidiEventLog());
+                        }
+                    }
+                }
 
                 this->initAdc();
 
@@ -118,6 +133,7 @@ namespace miku {
                     if(now - lastRender > 100) {
                         lastRender = now;
                         currentScreen->DataBind(this->dataValues);
+
                         currentScreen->Render();
                     }
 
@@ -158,7 +174,10 @@ namespace miku {
 
             /// @brief Declares the screens that should be available
             void buildScreens() {
-                this->screens = std::vector<ux::Screen*> {   
+                this->screens = std::vector<ux::Screen*> {
+                    new miku::ux::screens::MidiEventsScreen {
+                        this->GetDisplay()
+                    },
                     new miku::ux::screens::TestScreen{
                         this->GetDisplay(),
                         "Screen 1"
@@ -175,6 +194,7 @@ namespace miku {
             /// @brief Declares the tasks to run
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
+                    new miku::tasks::hardware::MidiRelayTask(hardware, 14, 13),
                     new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
                     new miku::tasks::hardware::BlinkyLedTask(hardware),
                     new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_NOTE"),

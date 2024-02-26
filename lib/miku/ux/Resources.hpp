@@ -138,4 +138,25 @@ namespace miku::ux {
 
 }
 
+/// @brief A little glyph of two connected eighth notes, with the left side down (frame 1).
+const bool EIGHTH_NOTE_0[6][5] = {
+    {0,0,0,1,1},
+    {0,1,1,0,1},
+    {0,1,0,0,1},
+    {0,1,0,1,1},
+    {1,1,0,1,1},
+    {1,1,0,0,0}
+};
+
+/// @brief A little glyph of two connected eighth notes, with the left side up (frame 2).
+const bool EIGHTH_NOTE_1[6][5] = {
+    {0,1,1,0,0},
+    {0,1,0,1,1},
+    {0,1,0,0,1},
+    {1,1,0,0,1},
+    {1,1,0,1,1},
+    {0,0,0,1,1}
+};
+
+
 #endif

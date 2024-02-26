@@ -41,11 +41,6 @@ namespace miku::ux::screens {
 
                 this->GetDisplay()->RequestInvalidate();
             }
-
-            std::vector<miku::tasks::Task*> GetTasks() {
-                return {};
-            }
-
         private:
             std::string someString;
     };
