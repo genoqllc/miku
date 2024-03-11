@@ -7,6 +7,8 @@
 #include "daisy_seed.h"
 
 namespace miku::tasks::hardware {
+    const int MIDI_PPQN = 24;
+
     class MidiRelayTask : public miku::tasks::Task {
         public:
             MidiRelayTask(daisy::DaisySeed hardware, unsigned short rxPin, unsigned short txPin) : Task(hardware, "MIDI", 0L) {
@@ -47,7 +49,7 @@ namespace miku::tasks::hardware {
                     switch(msg.type)
                     {
                         // TODO properly calculate channel based on incoming message
-                        case daisy::NoteOn:
+                        case daisy::MidiMessageType::NoteOn:
                             {
                                 uint8_t bytes[3] = {0x90, 0x00, 0x00};
                                 bytes[1] = msg.data[0];
@@ -55,12 +57,27 @@ namespace miku::tasks::hardware {
                                 this->midiHandler.SendMessage(bytes, 3);
                             }
                             break;
-                        case daisy::NoteOff:
+                        case daisy::MidiMessageType::NoteOff:
                             {
                                 uint8_t bytes[3] = {0x80, 0x00, 0x00};
                                 bytes[1] = msg.data[0];
                                 bytes[2] = msg.data[1];
                                 this->midiHandler.SendMessage(bytes, 3);
+                            }
+                            break;
+                        case daisy::MidiMessageType::SystemRealTime:
+                            {
+                                if (msg.srt_type == daisy::SystemRealTimeType::TimingClock) {
+                                    this->clockEventsReceived++;
+                                    if (this->clockEventsReceived >= MIDI_PPQN) {
+                                        this->clockEventsReceived = 0;
+                                        uint32_t now = daisy::System::GetNow();
+                                        uint32_t diff = now - this->lastClockTime;
+                                        float bpm = 60000.0f / diff;
+                                        this->dataValues["MIDI_BPM"] = bpm;
+                                        this->lastClockTime = now;
+                                    }
+                                }
                             }
                             break;
                         default: break;
@@ -88,6 +105,9 @@ namespace miku::tasks::hardware {
             unsigned short txPin = 0;
 
             unsigned long totalEventCount = 0;
+
+            uint32_t lastClockTime = 0;
+            uint32_t clockEventsReceived = 0;
     };
 }
 #endif
