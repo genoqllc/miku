@@ -7,6 +7,7 @@
 #include "daisy_seed.h"
 
 namespace miku::tasks::hardware {
+    /// @brief Number of MIDI clock events per quarter note
     const int MIDI_PPQN = 24;
 
     class MidiRelayTask : public miku::tasks::Task {
@@ -48,18 +49,14 @@ namespace miku::tasks::hardware {
 
                     switch(msg.type)
                     {
-                        // TODO properly calculate channel based on incoming message
+                        uint8_t messageType = msg.type;
+                        uint8_t channel = msg.channel;
+                        uint8_t header = (messageType << 4) | channel;
+
                         case daisy::MidiMessageType::NoteOn:
-                            {
-                                uint8_t bytes[3] = {0x90, 0x00, 0x00};
-                                bytes[1] = msg.data[0];
-                                bytes[2] = msg.data[1];
-                                this->midiHandler.SendMessage(bytes, 3);
-                            }
-                            break;
                         case daisy::MidiMessageType::NoteOff:
                             {
-                                uint8_t bytes[3] = {0x80, 0x00, 0x00};
+                                uint8_t bytes[3] = {header, 0x00, 0x00};
                                 bytes[1] = msg.data[0];
                                 bytes[2] = msg.data[1];
                                 this->midiHandler.SendMessage(bytes, 3);
