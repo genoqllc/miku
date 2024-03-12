@@ -27,6 +27,9 @@ namespace miku::ux::screens {
                 sprintf(buffer, "DB Evt: %d", this->midiEvents->GetNumElements());
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
+                sprintf(buffer, "BPM:    %.1f", this->dataValues["MIDI_BPM"]);
+                this->GetDisplay()->DrawStringByRow(4, 0, buffer);
+
                 this->GetDisplay()->RequestInvalidate();
             }
 
