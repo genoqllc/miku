@@ -1,0 +1,2968 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "ebb7bf49-4f3a-4d48-a7af-62f1e8931a47")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Connector_Audio:AudioJack2_Ground"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "AudioJack2_Ground"
+				(at 0 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "audio jack receptacle mono phone headphone TS connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Jack*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AudioJack2_Ground_0_1"
+				(rectangle
+					(start -2.54 -2.54)
+					(end -3.81 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0.635 -0.635) (xy 1.27 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy -0.635 2.54) (xy -0.635 0) (xy -1.27 -0.635) (xy -1.905 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 2.54 3.81)
+					(end -2.54 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "AudioJack2_Ground_1_1"
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "T"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector_Generic:Conn_01x04"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x04"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x04_1_1"
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 3.81)
+					(end 1.27 -6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector_Generic:Conn_02x06_Top_Bottom"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 1.27 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_02x06_Top_Bottom"
+				(at 1.27 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, double row, 02x06, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_2x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_02x06_Top_Bottom_1_1"
+				(rectangle
+					(start -1.27 -7.493)
+					(end 0 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 5.207)
+					(end 0 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 6.35)
+					(end 3.81 -8.89)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start 3.81 -7.493)
+					(end 2.54 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -4.953)
+					(end 2.54 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -2.413)
+					(end 2.54 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 0.127)
+					(end 2.54 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 2.667)
+					(end 2.54 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 5.207)
+					(end 2.54 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 3.81)
+					(name "Pin_10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -5.08 180)
+					(length 3.81)
+					(name "Pin_11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -7.62 180)
+					(length 3.81)
+					(name "Pin_12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 5.08 180)
+					(length 3.81)
+					(name "Pin_7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 2.54 180)
+					(length 3.81)
+					(name "Pin_8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "Pin_9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 130.81 21.59) (xy 144.78 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04469712-336a-4305-ba0a-f404faac8334")
+	)
+	(wire
+		(pts
+			(xy 43.18 31.75) (xy 88.9 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "080be984-27de-482e-b1f7-aac22d510240")
+	)
+	(wire
+		(pts
+			(xy 115.57 29.21) (xy 101.6 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0dc1a05e-1cdb-452b-9503-dcbaff1c4a80")
+	)
+	(wire
+		(pts
+			(xy 35.56 59.69) (xy 43.18 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ea95957-af0f-467c-86b7-b6a26198c010")
+	)
+	(wire
+		(pts
+			(xy 76.2 72.39) (xy 90.17 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11105b12-3f16-4f38-8c9c-2a412dde5ca9")
+	)
+	(wire
+		(pts
+			(xy 16.51 66.04) (xy 59.69 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15dbb0e3-1399-47ab-87c5-ed98e94ba4c4")
+	)
+	(bus
+		(pts
+			(xy 16.51 15.24) (xy 16.51 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1b8cbca6-bfb7-4545-b488-7a4da6303326")
+	)
+	(wire
+		(pts
+			(xy 45.72 34.29) (xy 88.9 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c187647-b015-4f78-942e-f81aaecc8866")
+	)
+	(wire
+		(pts
+			(xy 113.03 113.03) (xy 113.03 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e5324ec-f783-4bbb-8c7c-8b3c26e77ba3")
+	)
+	(wire
+		(pts
+			(xy 16.51 137.16) (xy 30.48 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f6dcc23-4760-448d-8295-5cfe21f33535")
+	)
+	(wire
+		(pts
+			(xy 144.78 46.99) (xy 138.43 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "241c1502-c2b4-4149-8e94-23ef00ecbd88")
+	)
+	(wire
+		(pts
+			(xy 138.43 46.99) (xy 138.43 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "267895db-5e7f-4f99-84b1-db666c82edc7")
+	)
+	(wire
+		(pts
+			(xy 16.51 100.33) (xy 30.48 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a199ae8-3ca1-450f-a5d1-7fe5edbfd636")
+	)
+	(wire
+		(pts
+			(xy 16.51 82.55) (xy 30.48 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2dabed7a-a95c-4b62-856e-13962818f742")
+	)
+	(wire
+		(pts
+			(xy 16.51 49.53) (xy 31.75 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d1be6b3-907e-49d5-9487-3ca520aa2561")
+	)
+	(wire
+		(pts
+			(xy 16.51 31.75) (xy 31.75 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "433933f4-e936-4fee-be35-4c43b4f60c99")
+	)
+	(wire
+		(pts
+			(xy 16.51 64.77) (xy 30.48 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43b536c6-ad9d-4d09-8169-49df3b33e095")
+	)
+	(wire
+		(pts
+			(xy 36.83 26.67) (xy 88.9 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44a732d5-6309-4671-b218-69665f635c2d")
+	)
+	(wire
+		(pts
+			(xy 16.51 154.94) (xy 30.48 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4508fd48-5a06-4d4d-be4d-ceae21750618")
+	)
+	(wire
+		(pts
+			(xy 101.6 34.29) (xy 110.49 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "472f5de7-9014-4496-adef-1a10be735d8e")
+	)
+	(wire
+		(pts
+			(xy 76.2 77.47) (xy 76.2 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47832519-5ca0-46de-ac54-e24799173833")
+	)
+	(wire
+		(pts
+			(xy 35.56 95.25) (xy 110.49 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49ecfd17-72e4-433d-bd51-dfeb3de8b743")
+	)
+	(wire
+		(pts
+			(xy 76.2 168.91) (xy 76.2 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c2944cf-aa25-4566-a9c8-092c04eef45d")
+	)
+	(wire
+		(pts
+			(xy 110.49 95.25) (xy 110.49 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54ab85ce-cb89-4351-949e-0c5862341f7e")
+	)
+	(wire
+		(pts
+			(xy 101.6 31.75) (xy 113.03 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55099905-831d-41e3-b8ca-03e51259e7e1")
+	)
+	(wire
+		(pts
+			(xy 46.99 24.13) (xy 46.99 15.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57fc125e-54ff-439e-b528-4f411d4aad2a")
+	)
+	(wire
+		(pts
+			(xy 35.56 132.08) (xy 115.57 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b0bc675-946c-4cc5-9f32-9c0cb9a037a6")
+	)
+	(wire
+		(pts
+			(xy 43.18 59.69) (xy 43.18 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60b6c594-9bca-4c7e-aac2-f1e4d283b2e8")
+	)
+	(wire
+		(pts
+			(xy 130.81 39.37) (xy 130.81 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6543eebf-95bb-458c-a855-b8ad3d383f6e")
+	)
+	(wire
+		(pts
+			(xy 123.19 154.94) (xy 123.19 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "677d7956-b332-4063-aa02-e804d08ab13d")
+	)
+	(wire
+		(pts
+			(xy 144.78 39.37) (xy 130.81 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b176644-604c-4713-b420-6d33f50467d0")
+	)
+	(wire
+		(pts
+			(xy 16.51 190.5) (xy 29.21 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6dd2e87d-6559-469c-9d02-9e694dab3ba3")
+	)
+	(wire
+		(pts
+			(xy 40.64 29.21) (xy 88.9 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e0ed331-8a3a-4a23-b08a-f674e5d760c0")
+	)
+	(wire
+		(pts
+			(xy 36.83 44.45) (xy 40.64 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71c5f4b0-f452-45df-8552-385feb10865d")
+	)
+	(wire
+		(pts
+			(xy 16.51 83.82) (xy 59.69 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75548f84-08a7-4854-8f63-251c242ad5a4")
+	)
+	(wire
+		(pts
+			(xy 76.2 64.77) (xy 90.17 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81877593-4f34-4135-ac42-db901b8ede89")
+	)
+	(wire
+		(pts
+			(xy 64.77 59.69) (xy 76.2 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8385e4e0-c3b8-4ef8-a9fd-c40b93e54c2d")
+	)
+	(wire
+		(pts
+			(xy 115.57 132.08) (xy 115.57 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89220d47-1912-4b7b-a00e-9361a4bfb948")
+	)
+	(wire
+		(pts
+			(xy 16.51 15.24) (xy 46.99 15.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a90726d-7708-44df-945b-79feb69ecc20")
+	)
+	(wire
+		(pts
+			(xy 133.35 41.91) (xy 133.35 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "922bf0eb-dad2-4c94-a51d-80752186adfa")
+	)
+	(wire
+		(pts
+			(xy 135.89 26.67) (xy 144.78 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92dcb613-2939-42ba-893c-df1172cd6750")
+	)
+	(wire
+		(pts
+			(xy 101.6 26.67) (xy 118.11 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9851cf8e-7349-4cd9-bad9-c7159a67ea31")
+	)
+	(wire
+		(pts
+			(xy 144.78 44.45) (xy 135.89 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b3f8522-fa3c-40ba-aaf4-6d8615c7b32b")
+	)
+	(wire
+		(pts
+			(xy 133.35 24.13) (xy 144.78 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f419133-88b5-46c0-bb5a-11fd78334fbb")
+	)
+	(wire
+		(pts
+			(xy 135.89 44.45) (xy 135.89 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a153e95e-e46e-46ff-a3c7-0025f6e66f93")
+	)
+	(wire
+		(pts
+			(xy 64.77 77.47) (xy 76.2 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a47de8e6-38e5-4630-9a76-1760b8b728c4")
+	)
+	(wire
+		(pts
+			(xy 46.99 24.13) (xy 88.9 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a56475b0-3764-49fb-84ae-51a3742dcd3b")
+	)
+	(wire
+		(pts
+			(xy 76.2 152.4) (xy 120.65 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a77adeb5-8f16-45cc-aa51-db9c9103c56b")
+	)
+	(wire
+		(pts
+			(xy 101.6 24.13) (xy 120.65 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae907364-49c9-461c-ad15-e5e4aeea6f68")
+	)
+	(wire
+		(pts
+			(xy 35.56 113.03) (xy 113.03 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b29696bd-8ae5-4129-a321-d7523a0d6af3")
+	)
+	(wire
+		(pts
+			(xy 76.2 59.69) (xy 76.2 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbb0ee86-44f1-4491-a2bd-630f61feaf72")
+	)
+	(wire
+		(pts
+			(xy 144.78 41.91) (xy 133.35 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca3053aa-69d7-49dd-86c8-f74a6257aff1")
+	)
+	(wire
+		(pts
+			(xy 16.51 173.99) (xy 30.48 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d31f3a65-1347-4ada-a717-665b9e37c8ae")
+	)
+	(wire
+		(pts
+			(xy 59.69 66.04) (xy 59.69 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7da5d84-be8a-47a6-b050-e77255f204bf")
+	)
+	(wire
+		(pts
+			(xy 118.11 149.86) (xy 118.11 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc4fc2a5-d34c-4d7d-9216-e2fb73e7d673")
+	)
+	(wire
+		(pts
+			(xy 78.74 185.42) (xy 78.74 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de12fd4b-6352-4434-9839-511618e60c08")
+	)
+	(wire
+		(pts
+			(xy 35.56 168.91) (xy 76.2 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e03204ea-1530-4400-946a-6d363a0674fb")
+	)
+	(wire
+		(pts
+			(xy 59.69 82.55) (xy 59.69 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1157f33-d2bd-492f-a703-e0f5ad3a9193")
+	)
+	(wire
+		(pts
+			(xy 34.29 185.42) (xy 78.74 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e385959b-5906-42a8-bf7f-18fb54737222")
+	)
+	(wire
+		(pts
+			(xy 35.56 149.86) (xy 118.11 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e85d890a-0f75-4881-8568-e037afda0c81")
+	)
+	(wire
+		(pts
+			(xy 35.56 77.47) (xy 45.72 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed070909-e4f1-4e3f-9b1c-58e3162667df")
+	)
+	(wire
+		(pts
+			(xy 138.43 29.21) (xy 144.78 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed65c9e8-f107-4625-ab46-2e9c712d8070")
+	)
+	(wire
+		(pts
+			(xy 120.65 152.4) (xy 120.65 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef5cd05b-bec6-4c0a-9d67-d02468fc5616")
+	)
+	(wire
+		(pts
+			(xy 45.72 77.47) (xy 45.72 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f25bc8c6-959a-420e-a0e6-e962dee9daa1")
+	)
+	(wire
+		(pts
+			(xy 78.74 154.94) (xy 123.19 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f756a649-9c13-4f38-9ef7-1883e8a11ee1")
+	)
+	(wire
+		(pts
+			(xy 16.51 118.11) (xy 30.48 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7e2e7e3-1c0a-4640-b084-50400907e049")
+	)
+	(wire
+		(pts
+			(xy 101.6 21.59) (xy 123.19 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb681671-ec72-422f-8cff-ab2acf93b3bf")
+	)
+	(wire
+		(pts
+			(xy 40.64 44.45) (xy 40.64 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fbc9197b-743e-43b7-a024-1ec30c77b194")
+	)
+	(label "PITCH_CV_IN"
+		(at 77.47 29.21 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "05c3df1f-7cd6-422f-bd53-bceeae7a176d")
+	)
+	(label "VIBDELAY_CV_IN"
+		(at 101.6 21.59 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "143d3de4-d6c2-4032-80f3-930b08797d52")
+	)
+	(label "SCA"
+		(at 140.97 46.99 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5c990d5d-ef38-40e8-9ebd-0c3b024f19e8")
+	)
+	(label "VIBRATE_CV_IN"
+		(at 101.6 24.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "72270592-a134-4733-a8a7-55a8e9f4fdeb")
+	)
+	(label "AGND"
+		(at 81.28 24.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "792de2e9-6905-497e-9bcf-dacd7989dfff")
+	)
+	(label "VCC"
+		(at 140.97 24.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7ae0b9b5-6bb6-4c4e-a208-6a8b9770b15a")
+	)
+	(label "SCL"
+		(at 140.97 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8464115e-dd38-4e8e-94b5-c6949611bccf")
+	)
+	(label "VIBTYPE_CV_IN"
+		(at 101.6 26.67 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "89c10f61-671f-439d-9fea-648ae8c8c1ca")
+	)
+	(label "SCA"
+		(at 140.97 29.21 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "93565cba-7330-4a0c-aa89-0a30edf97f4c")
+	)
+	(label "MIDI_IN"
+		(at 81.28 26.67 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "94ef220d-e642-4b30-9586-b5a0a8034cfc")
+	)
+	(label "SYLL_CV_IN"
+		(at 101.6 34.29 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b3dde8ef-d403-4a74-97d9-d0d257461e85")
+	)
+	(label "GATE_IN"
+		(at 80.01 31.75 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b837932c-8663-40d2-83c4-5fae26a1e09c")
+	)
+	(label "VOL_CV_IN"
+		(at 78.74 34.29 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c1adb59b-46ce-44b1-9cb0-cbf3634ab2f4")
+	)
+	(label "PORT_CV_IN"
+		(at 101.6 31.75 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d118bf1d-488d-4ca3-8c5a-070e8726ef13")
+	)
+	(label "GND"
+		(at 140.97 21.59 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d76f918c-fd9f-4362-bf2a-07f9c7b76744")
+	)
+	(label "SCL"
+		(at 140.97 26.67 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e311d15e-94ac-4553-b94d-347cf6da898e")
+	)
+	(label "VCC"
+		(at 140.97 41.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e3a9f7cc-04c5-4ac9-b5e0-f30ca0fe6a72")
+	)
+	(label "TBD_IN"
+		(at 101.6 29.21 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e9c819cb-9fdb-4c37-947e-afe659c3319b")
+	)
+	(label "GND"
+		(at 140.97 39.37 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "edf2b9b4-cb3f-4d9e-ac01-4d45dc4e281b")
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x04")
+		(at 149.86 24.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "08ace76b-bccb-4182-9baa-aee261f0530f")
+		(property "Reference" "IX01"
+			(at 152.4 24.1299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SCREEN_INTERCONNECT"
+			(at 152.4 26.6699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.86 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 149.86 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 149.86 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e5db84eb-ba75-4e44-8e90-6002123e407a")
+		)
+		(pin "2"
+			(uuid "646ebdc4-85d5-42a9-b2bf-d46da54d4158")
+		)
+		(pin "3"
+			(uuid "6a719cd7-21fe-4c8b-ba8c-c26e0a48fff2")
+		)
+		(pin "4"
+			(uuid "a423fee7-017d-4c1f-9012-13278ba361ff")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "IX01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 31.75 26.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "090b2f9d-3080-450a-bbc5-4bdfbfc3e9d0")
+		(property "Reference" "J01"
+			(at 31.115 17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MIDI_IN"
+			(at 31.115 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 31.75 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 31.75 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "1e9ffa5e-96a9-4035-abe7-5a4c08f04ca0")
+		)
+		(pin "G"
+			(uuid "9ee36d02-f7ea-45a8-966b-4f5abe4a73c0")
+		)
+		(pin "T"
+			(uuid "432b160d-ba5f-4874-b08a-5b8b37745f57")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "36b934a1-2095-4cd4-8323-8db010245bc2")
+		(property "Reference" "J06"
+			(at 36.195 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PORT_CV_IN"
+			(at 29.845 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "74aba4b6-fb01-427e-8d7c-d2c6cb91737d")
+		)
+		(pin "G"
+			(uuid "e6b3c547-0e0f-40f4-991b-0aa0df5d17fa")
+		)
+		(pin "T"
+			(uuid "1903c22c-09bc-4153-abdc-1f859c865903")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_02x06_Top_Bottom")
+		(at 93.98 26.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5475e31a-bfbc-4de7-b442-764afbc42340")
+		(property "Reference" "IX02"
+			(at 95.25 15.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TOP_INTERCONNECT"
+			(at 95.25 17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 93.98 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, double row, 02x06, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 93.98 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "104615c7-f632-49b2-8164-45de508c52f5")
+		)
+		(pin "7"
+			(uuid "1802da30-5cb4-4ba7-ae4b-afecc7ff0ea6")
+		)
+		(pin "9"
+			(uuid "c3b3fa95-031d-451f-9aae-8b5573771142")
+		)
+		(pin "1"
+			(uuid "834c7a4a-1001-417b-958c-c0e0a80b542c")
+		)
+		(pin "2"
+			(uuid "8ef7331f-ea69-43e4-a1a7-c261ee34c83b")
+		)
+		(pin "11"
+			(uuid "8e8e9a3b-8921-4c2e-ab9c-7a7664203b09")
+		)
+		(pin "10"
+			(uuid "e33fc1f1-1df5-4339-8384-64335b51d57a")
+		)
+		(pin "5"
+			(uuid "0e0fe105-1ca2-448a-87fe-84e883f5d1ac")
+		)
+		(pin "12"
+			(uuid "baabf9e4-de95-4ec8-9b85-8b5e477ff5ca")
+		)
+		(pin "6"
+			(uuid "576d952c-b01a-461e-a65d-68cc5bfbeaae")
+		)
+		(pin "4"
+			(uuid "0c33a3cb-26af-4ebf-a306-41bac64bb376")
+		)
+		(pin "8"
+			(uuid "89a2390b-3b73-4441-88b0-050b698af18d")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "IX02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "59c324f3-f1b3-44bf-ba78-458a297fa1e8")
+		(property "Reference" "J04"
+			(at 36.195 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VOL_CV_IN"
+			(at 29.845 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "bc8e678c-2965-4fae-ab71-11798e17d566")
+		)
+		(pin "G"
+			(uuid "3160d9eb-442c-4121-9853-91c249b4a3a8")
+		)
+		(pin "T"
+			(uuid "b9a6becc-4917-4273-84e7-82d1386df64a")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8278301c-114e-4ba2-b8b6-2804ca945d79")
+		(property "Reference" "J09"
+			(at 36.195 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VIBRATE_CV_IN"
+			(at 29.845 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "8af9309a-2d7d-4554-8a21-3c77d1f2b523")
+		)
+		(pin "G"
+			(uuid "fff497b6-1a5b-41ff-883a-a95748a88300")
+		)
+		(pin "T"
+			(uuid "22f5f617-e368-4e86-8f91-4584abfb2ae9")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 59.69 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "87519bbf-6fa2-44b4-9150-84f05d57497f")
+		(property "Reference" "J12"
+			(at 59.055 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AUDIO_R_OUT"
+			(at 59.055 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 59.69 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 59.69 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 59.69 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "G"
+			(uuid "5be98fa6-88cc-45d2-8187-72b8526bf71e")
+		)
+		(pin "S"
+			(uuid "5fcb3f7e-e389-40a5-9aeb-56080c97f97a")
+		)
+		(pin "T"
+			(uuid "bae38bb5-bea2-49df-b570-3fd32309a136")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 31.75 44.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8d789400-f025-47f0-bdfa-010c90f77295")
+		(property "Reference" "J02"
+			(at 31.115 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PITCH_CV_IN"
+			(at 31.115 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 31.75 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 31.75 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "7fc92897-d967-4cfd-b3ed-8b0b944d91b8")
+		)
+		(pin "G"
+			(uuid "313f49a7-e103-4f33-94db-e759ae488323")
+		)
+		(pin "T"
+			(uuid "8815d09b-fc19-4abc-8c97-64758306a6d1")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x04")
+		(at 95.25 67.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8e92bfc6-0560-4085-97be-b367039669b6")
+		(property "Reference" "IX04"
+			(at 97.79 67.3099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "AUDIO_INTERCONNECT"
+			(at 97.79 69.8499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 95.25 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.25 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 95.25 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "60944d8d-f2f7-4097-b522-a1465e9cb528")
+		)
+		(pin "4"
+			(uuid "ac7d4aa6-cf68-44c1-b1ff-3b6974b88c85")
+		)
+		(pin "3"
+			(uuid "72643b4b-4ae6-4437-a93d-604d80cdae71")
+		)
+		(pin "1"
+			(uuid "82e463c5-32d7-4603-9d40-4d156cccc7ac")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "IX04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_02x06_Top_Bottom")
+		(at 143.51 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "afe5b9ee-7e3f-4824-a433-208c58298bcd")
+		(property "Reference" "IX03"
+			(at 144.78 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BOTTOM_INTERCONNECT"
+			(at 144.78 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 143.51 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 143.51 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, double row, 02x06, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 143.51 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "a399be05-9400-4fcf-a257-e77c52f0ff7b")
+		)
+		(pin "8"
+			(uuid "7f58c065-03f7-4d38-86d3-9f8e538f3c28")
+		)
+		(pin "12"
+			(uuid "b5cacc33-6736-4094-b5b2-91dbc09a600e")
+		)
+		(pin "11"
+			(uuid "0ae89edc-82e1-41f8-9160-ba96bfd676b1")
+		)
+		(pin "2"
+			(uuid "158768b0-af88-4da3-b707-e46be58a7449")
+		)
+		(pin "10"
+			(uuid "1b945c5c-dadc-4ed9-b765-e8f8d641e421")
+		)
+		(pin "5"
+			(uuid "9b2a524d-1761-4c15-b64b-92cbf046bbb0")
+		)
+		(pin "4"
+			(uuid "4bde14cf-c062-45ad-bb50-8916c3966b55")
+		)
+		(pin "9"
+			(uuid "8c9c73a6-fd93-4f27-a8c9-6e4bd7fbd999")
+		)
+		(pin "3"
+			(uuid "0e18b7bf-8258-4b9a-80ec-33a658583a7d")
+		)
+		(pin "6"
+			(uuid "77528eec-8c34-4d28-ab21-7a2bb994a4d9")
+		)
+		(pin "1"
+			(uuid "8b34594e-f875-4259-bda9-a142c8b6ba44")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "IX03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b5cc8d6b-e624-4279-9212-6059ca855eee")
+		(property "Reference" "J05"
+			(at 36.195 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SYLL_CV_IN"
+			(at 29.845 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "edd6e33e-2f25-4063-96a3-d67f97f74c0d")
+		)
+		(pin "G"
+			(uuid "9dab0196-e355-42be-a84d-b62cb0d2ca22")
+		)
+		(pin "T"
+			(uuid "cb4f7731-2211-45c4-a5ef-a3624a88d159")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x04")
+		(at 149.86 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b79ba6e8-6170-4c16-8abf-1297477525e1")
+		(property "Reference" "SCR01"
+			(at 152.4 41.9099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PRIMARY_SCREEN"
+			(at 152.4 44.4499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.86 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 149.86 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 149.86 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0cc38f41-a190-4af2-9794-4fd3c2de4d9a")
+		)
+		(pin "2"
+			(uuid "67c219aa-c793-42ba-99eb-ff2c2e884960")
+		)
+		(pin "3"
+			(uuid "85d3c3c4-ebf3-4af7-97c2-4cc193951ac7")
+		)
+		(pin "4"
+			(uuid "2451832b-865d-4140-8bb1-544a0e6fff7f")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "SCR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "be299cbd-cc03-4080-abba-493ae9525eaa")
+		(property "Reference" "J03"
+			(at 36.195 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GATE_IN"
+			(at 29.845 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "46fe9c1e-fba7-4e75-9d9f-569fa845952a")
+		)
+		(pin "G"
+			(uuid "741be8e9-8414-4ac8-8447-7080eda6ea75")
+		)
+		(pin "T"
+			(uuid "7e76e888-ff56-4136-a4d1-5ba8ca092b89")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 149.86 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c2a7fe36-2109-4ee0-a6bc-08db8ac864ec")
+		(property "Reference" "J08"
+			(at 36.195 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VIBTYPE_CV_IN"
+			(at 29.845 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "93a84d2b-3b9a-4252-9f4f-4f06a4aee6ea")
+		)
+		(pin "G"
+			(uuid "b822d35f-03e7-4800-9d2b-d193997374ed")
+		)
+		(pin "T"
+			(uuid "ee4d0bb1-6514-4265-8305-d18b8e9d306e")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 30.48 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c56e64ac-e03a-495f-a293-79d78ecf1978")
+		(property "Reference" "J07"
+			(at 36.195 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TBD_IN"
+			(at 29.845 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 30.48 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 30.48 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "6deb1a0a-36f7-49fe-80dd-7537d901e61f")
+		)
+		(pin "G"
+			(uuid "daa7e275-858c-4c5c-9956-d27edd2d4842")
+		)
+		(pin "T"
+			(uuid "7ac17046-2702-4eb2-be14-8fb6aad99748")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 29.21 185.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3ec0a77-2be0-4d17-ae7a-3e9ddb32b423")
+		(property "Reference" "J10"
+			(at 28.575 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VIBDELAY_CV_IN"
+			(at 28.575 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 29.21 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 29.21 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 29.21 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "S"
+			(uuid "819a5519-9636-4b29-a0f2-a9fab15c6ea2")
+		)
+		(pin "G"
+			(uuid "38323eb7-8c6f-475a-83f5-5acc5ec7f0c4")
+		)
+		(pin "T"
+			(uuid "259e9d98-2fc2-4ad1-8228-67d6c2c31f5c")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack2_Ground")
+		(at 59.69 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f65f95ef-57ee-4343-a363-0d232f687d61")
+		(property "Reference" "J11"
+			(at 59.055 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AUDIO_L_OUT"
+			(at 59.055 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 59.69 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 59.69 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Audio Jack, 2 Poles (Mono / TS), Grounded Sleeve"
+			(at 59.69 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "G"
+			(uuid "3e236048-7ce9-4075-9872-6b09bbb7b8c6")
+		)
+		(pin "S"
+			(uuid "2bc466f9-beea-4164-852d-639cf18b6f27")
+		)
+		(pin "T"
+			(uuid "48c5b4a1-1d42-4128-bd3b-e2308c265b06")
+		)
+		(instances
+			(project "miku"
+				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
+					(reference "J11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
