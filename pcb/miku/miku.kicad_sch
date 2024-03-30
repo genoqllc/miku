@@ -874,7 +874,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 34.29) (xy 88.9 34.29)
+			(xy 45.72 40.64) (xy 120.65 40.64)
 		)
 		(stroke
 			(width 0)
@@ -911,6 +911,16 @@
 			(type default)
 		)
 		(uuid "241c1502-c2b4-4149-8e94-23ef00ecbd88")
+	)
+	(wire
+		(pts
+			(xy 76.2 34.29) (xy 88.9 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "252f0e4b-87a9-4d71-acf1-89a274742a5a")
 	)
 	(wire
 		(pts
@@ -1214,6 +1224,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 24.13) (xy 120.65 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9850f93e-6149-426b-9f05-f997e8c541a9")
+	)
+	(wire
+		(pts
 			(xy 101.6 26.67) (xy 118.11 26.67)
 		)
 		(stroke
@@ -1241,6 +1261,16 @@
 			(type default)
 		)
 		(uuid "9f419133-88b5-46c0-bb5a-11fd78334fbb")
+	)
+	(wire
+		(pts
+			(xy 76.2 45.72) (xy 76.2 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a070cb91-1b47-43c7-a117-12bc839260cc")
 	)
 	(wire
 		(pts
@@ -1284,7 +1314,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 24.13) (xy 120.65 24.13)
+			(xy 76.2 45.72) (xy 120.65 45.72)
 		)
 		(stroke
 			(width 0)
@@ -1321,6 +1351,16 @@
 			(type default)
 		)
 		(uuid "ca3053aa-69d7-49dd-86c8-f74a6257aff1")
+	)
+	(wire
+		(pts
+			(xy 120.65 40.64) (xy 120.65 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd8cbb88-159f-4853-93bd-5b06d641025c")
 	)
 	(wire
 		(pts
@@ -1424,7 +1464,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 152.4) (xy 120.65 24.13)
+			(xy 120.65 152.4) (xy 120.65 45.72)
 		)
 		(stroke
 			(width 0)
@@ -1434,7 +1474,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 77.47) (xy 45.72 34.29)
+			(xy 45.72 77.47) (xy 45.72 40.64)
 		)
 		(stroke
 			(width 0)
@@ -1516,7 +1556,7 @@
 		(uuid "5c990d5d-ef38-40e8-9ebd-0c3b024f19e8")
 	)
 	(label "VIBRATE_CV_IN"
-		(at 101.6 24.13 0)
+		(at 76.2 34.29 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1524,7 +1564,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "72270592-a134-4733-a8a7-55a8e9f4fdeb")
+		(uuid "79161cf5-aaba-49a2-861b-772e636bcb29")
 	)
 	(label "AGND"
 		(at 81.28 24.13 0)
@@ -1592,6 +1632,17 @@
 		)
 		(uuid "94ef220d-e642-4b30-9586-b5a0a8034cfc")
 	)
+	(label "VOL_CV_IN"
+		(at 101.6 24.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "96eea2d5-c4a5-4b88-9236-dbd348283324")
+	)
 	(label "SYLL_CV_IN"
 		(at 101.6 34.29 0)
 		(fields_autoplaced yes)
@@ -1613,17 +1664,6 @@
 			(justify left bottom)
 		)
 		(uuid "b837932c-8663-40d2-83c4-5fae26a1e09c")
-	)
-	(label "VOL_CV_IN"
-		(at 78.74 34.29 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c1adb59b-46ce-44b1-9cb0-cbf3634ab2f4")
 	)
 	(label "PORT_CV_IN"
 		(at 101.6 31.75 0)
@@ -1918,7 +1958,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5475e31a-bfbc-4de7-b442-764afbc42340")
-		(property "Reference" "IX02"
+		(property "Reference" "IX03"
 			(at 95.25 15.24 0)
 			(effects
 				(font
@@ -1926,7 +1966,7 @@
 				)
 			)
 		)
-		(property "Value" "TOP_INTERCONNECT"
+		(property "Value" "BOTTOM_INTERCONNECT"
 			(at 95.25 17.78 0)
 			(effects
 				(font
@@ -2000,7 +2040,7 @@
 		(instances
 			(project "miku"
 				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
-					(reference "IX02")
+					(reference "IX03")
 					(unit 1)
 				)
 			)
@@ -2374,7 +2414,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "afe5b9ee-7e3f-4824-a433-208c58298bcd")
-		(property "Reference" "IX03"
+		(property "Reference" "IX02"
 			(at 144.78 64.77 0)
 			(effects
 				(font
@@ -2382,7 +2422,7 @@
 				)
 			)
 		)
-		(property "Value" "BOTTOM_INTERCONNECT"
+		(property "Value" "TOP_INTERCONNECT"
 			(at 144.78 67.31 0)
 			(effects
 				(font
@@ -2456,7 +2496,7 @@
 		(instances
 			(project "miku"
 				(path "/ebb7bf49-4f3a-4d48-a7af-62f1e8931a47"
-					(reference "IX03")
+					(reference "IX02")
 					(unit 1)
 				)
 			)
