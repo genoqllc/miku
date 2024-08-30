@@ -14,3 +14,15 @@ LDFLAGS = -u _printf_float
 SYSTEM_FILES_DIR = $(LIBDAISY_DIR)/core
 include $(SYSTEM_FILES_DIR)/Makefile
 
+.PHONY: udev-rules
+udev-rules:
+	@sudo cp 70-daisy-seed.udev.rules /etc/udev/rules.d
+	@sudo systemctl reload udev
+	@sudo udevadm trigger
+
+.PHONY: dfu-id
+dfu-id:
+	# TODO combo this with udev-rules
+	@dfu-util -l | \
+		grep --max-count 1 "Found DFU" | \
+		sed -n 's/.*\[\([0-9a-fA-F]\+\):\([0-9a-fA-F]\+\)\].*/ATTRS{idVendor}=="\1", ATTRS{idProduct}=="\2", MODE="660", GROUP="plugdev", TAG+="uaccess"/p'
