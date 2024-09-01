@@ -13,7 +13,7 @@ namespace miku::midi {
         return notes[note % 12] + std::to_string(note / 12 - 1);
     }
 
-    void GetMidiTypeAsString(daisy::MidiEvent& msg, char* str)
+    std::string GetMidiTypeAsString(daisy::MidiEvent& msg, char* str)
     {
         switch(msg.type)
         {
@@ -29,6 +29,8 @@ namespace miku::midi {
             case daisy::ChannelMode: strcpy(str, "ChMd"); break;
             default: strcpy(str, "Unk"); break;
         }
+
+        return str;
     }
 }
 

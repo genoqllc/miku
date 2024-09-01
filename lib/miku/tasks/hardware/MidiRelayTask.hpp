@@ -5,30 +5,22 @@
 
 #include "../Task.hpp"
 #include "daisy_seed.h"
+#include "MidiHardware.hpp"
 
 namespace miku::tasks::hardware {
     const int MIDI_PPQN = 24;
 
     class MidiRelayTask : public miku::tasks::Task {
         public:
-            MidiRelayTask(daisy::DaisySeed hardware, unsigned short rxPin, unsigned short txPin) : Task(hardware, "MIDI", 0L) {
-                this->rxPin = rxPin;
-                this->txPin = txPin;
-
+            MidiRelayTask(daisy::DaisySeed hardware, miku::tasks::hardware::MidiHardware* midiHardware) : Task(hardware, "MIDI", 0L) {
                 this->dependenciesProvided = (DependencyFlags)(this->dependenciesProvided | DependencyFlags::MidiEvents);
+
+                this->midiHardware = midiHardware;
 
                 this->Init();
             }
 
             void Init() {
-                daisy::MidiUartHandler::Config midiConfig;
-                midiConfig.transport_config.periph = daisy::UartHandler::Config::Peripheral::USART_1;
-                midiConfig.transport_config.rx.pin = this->hardware.GetPin(this->rxPin).pin;
-                midiConfig.transport_config.tx.pin = this->hardware.GetPin(this->txPin).pin;
-
-                this->midiHandler.Init(midiConfig);
-                this->midiHandler.StartReceive();
-
                 // TODO Replace this fake Sysex with real stuff from the other Tasks.
                 std::vector<uint8_t> bytes = {
                     0xF0, 0x43, 0x79, 0x09, 0x00, 0x50, // header
@@ -39,7 +31,7 @@ namespace miku::tasks::hardware {
                     0x00, 0xF7  // footer
                 };
 
-                this->midiHandler.SendMessage(bytes.data(), bytes.size());
+                this->midiHardware->SendMessage(bytes);
             }
 
             void Execute() {
@@ -52,9 +44,9 @@ namespace miku::tasks::hardware {
                     this->dataValues["MIDI_HEARTBEAT"] = this->heartbeat;
                 }
 
-                while(this->midiHandler.HasEvents()) {
+                while(this->midiHardware->HasEvents()) {
                     this->totalEventCount++;
-                    daisy::MidiEvent msg = this->midiHandler.PopEvent();
+                    daisy::MidiEvent msg = this->midiHardware->PopEvent();
 
                     this->HandleMessage(msg, now);
                 }
@@ -76,7 +68,7 @@ namespace miku::tasks::hardware {
                             uint8_t bytes[3] = {0x90, 0x00, 0x00};
                             bytes[1] = msg.data[0];
                             bytes[2] = msg.data[1];
-                            this->midiHandler.SendMessage(bytes, 3);
+                            this->midiHardware->SendMessage(bytes, 3);
                         }
                         break;
                     case daisy::MidiMessageType::NoteOff:
@@ -84,7 +76,7 @@ namespace miku::tasks::hardware {
                             uint8_t bytes[3] = {0x80, 0x00, 0x00};
                             bytes[1] = msg.data[0];
                             bytes[2] = msg.data[1];
-                            this->midiHandler.SendMessage(bytes, 3);
+                            this->midiHardware->SendMessage(bytes, 3);
                         }
                         break;
                     case daisy::MidiMessageType::SystemRealTime:
@@ -120,7 +112,7 @@ namespace miku::tasks::hardware {
                 return &this->midiEventLog;
             }
         private:
-            daisy::MidiUartHandler midiHandler;
+            MidiHardware* midiHardware;
             daisy::FIFO<daisy::MidiEvent, 128> midiEventLog;
             unsigned short rxPin = 0;
             unsigned short txPin = 0;

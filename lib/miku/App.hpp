@@ -15,6 +15,9 @@
 #include "tasks/Task.hpp"
 #include "ux/Display.hpp"
 
+#include "utils/Clamper.hpp"
+#include "tasks/hardware/MidiHardware.hpp"
+
 // Screens
 #include "ux/screens/SplashScreen.hpp"
 #include "ux/screens/TestScreen.hpp"
@@ -38,6 +41,9 @@ namespace miku {
 
                 this->hardware = hardware;
                 this->hardware.Init();
+
+                this->midiHardware = new miku::tasks::hardware::MidiHardware(hardware, 14, 13);
+                //this->midiHardware->Init();
 
                 ux::MikuOledDisplay mikuDisplay;
                 this->display = new ux::Display(hardware, mikuDisplay);
@@ -194,10 +200,10 @@ namespace miku {
             /// @brief Declares the tasks to run
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
-                    new miku::tasks::hardware::MidiRelayTask(hardware, 14, 13),
+                    new miku::tasks::hardware::MidiRelayTask(hardware, this->midiHardware),
                     new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
                     new miku::tasks::hardware::BlinkyLedTask(hardware),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_NOTE"),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SYLL"),
                     new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_SCRN")
                 };
             }
@@ -207,7 +213,8 @@ namespace miku {
             unsigned short determineDesiredScreenIndex() {
                 float screenPotCurrent = this->dataValues["POT_SCRN_CURRENT"];
                 // TODO protect against div by zero
-                return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
+                //return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
+                return Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
             }
 
             /// @brief The duration of the splash screen in milliseconds
@@ -220,6 +227,8 @@ namespace miku {
             bool interrupt = false;
             /// @brief The underlying hardware platform
             daisy::DaisySeed hardware;
+            /// @brief The midi hardware interface; should probably be presented through the hardware abstraction
+            miku::tasks::hardware::MidiHardware* midiHardware;
             /// @brief Version of the app
             std::string version;
             /// @brief The header screen
