@@ -12,7 +12,7 @@ namespace miku::tasks::hardware {
 
     class MidiRelayTask : public miku::tasks::Task {
         public:
-            MidiRelayTask(daisy::DaisySeed hardware, miku::tasks::hardware::MidiHardware* midiHardware) : Task(hardware, "MIDI", 0L) {
+            MidiRelayTask(daisy::DaisySeed hardware, data::State* state, miku::tasks::hardware::MidiHardware* midiHardware) : Task(hardware, state, "MIDI", 0L) {
                 this->dependenciesProvided = (DependencyFlags)(this->dependenciesProvided | DependencyFlags::MidiEvents);
 
                 this->midiHardware = midiHardware;

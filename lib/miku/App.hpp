@@ -134,18 +134,18 @@ namespace miku {
 
                     if (now - lastScreenCheck > 100) {
                         lastScreenCheck = now;
-                        this->desiredScreenIndex = this->determineDesiredScreenIndex();
-                        this->dataValues["SCRN_INDEX"] = this->determineDesiredScreenIndex();
+                        this->desiredScreenIndex = 0; this->determineDesiredScreenIndex();
                     }
 
-                    if (this->desiredScreenIndex != this->currentScreenIndex) {
-                        this->currentScreenIndex = desiredScreenIndex;
-                        this->currentScreen = screens[currentScreenIndex];
+                    if (this->desiredScreenIndex != this->state->ScreenIndex) {
+                        this->state->ScreenIndex = desiredScreenIndex;
+                        this->currentScreen = screens[this->state->ScreenIndex];
                     }
 
                     if(now - lastRender > 100) {
                         lastRender = now;
-                        currentScreen->DataBind(this->dataValues);
+                        // TODO change to bind the state instead of the data bag
+                        // currentScreen->DataBind(this->dataValues);
 
                         currentScreen->Render();
                     }
@@ -178,9 +178,9 @@ namespace miku {
                     if (task != nullptr && task->IsEnabled() && task->TimerLapsed()) {
                         task->Execute();
 
-                        for(auto& it : task->GetDataValues()) {
-                            this->dataValues[it.first] = it.second;
-                        }
+                        // for(auto& it : task->GetDataValues()) {
+                        //     this->dataValues[it.first] = it.second;
+                        // }
                     }
                 }
             }
@@ -192,30 +192,31 @@ namespace miku {
                         this->GetDisplay(),
                         this->state,
                         "Screen 1"
-                    },  
-                    new miku::ux::screens::PotTestScreen {
-                        this->GetDisplay(),
-                        this->state
-                    },
-                    new miku::ux::screens::MidiEventsScreen {
-                        this->GetDisplay(),
-                        this->state
-                    },               
-                    new miku::ux::screens::SyllableScreen {
-                        this->GetDisplay(),
-                        this->state
-                    }
+                    }  
+                    // new miku::ux::screens::PotTestScreen {
+                    //     this->GetDisplay(),
+                    //     this->state
+                    // },
+                    // new miku::ux::screens::MidiEventsScreen {
+                    //     this->GetDisplay(),
+                    //     this->state
+                    // },               
+                    // new miku::ux::screens::SyllableScreen {
+                    //     this->GetDisplay(),
+                    //     this->state
+                    // }
                 };
             }
 
             /// @brief Declares the tasks to run
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
-                    new miku::tasks::hardware::MidiRelayTask(hardware, this->midiHardware),
-                    new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
-                    new miku::tasks::hardware::BlinkyLedTask(hardware),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SYLL", &this->state->VowelPotentiometer),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
+                    new miku::tasks::hardware::BlinkyLedTask(hardware, this->state)
+                    // new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware),
+                    // new miku::tasks::hardware::ScreenButtonTask(hardware, this->state, 28),
+                    
+                    // new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 20, "POT_SYLL", &this->state->VowelPotentiometer),
+                    // new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
                 };
             }
 
@@ -225,12 +226,14 @@ namespace miku {
                 uint16_t screenPotCurrent = state->ScreenSelectionPotentiometer;
                 // TODO protect against div by zero
                 //return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
-                return Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
+                //return Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
+
+                return 0;
             }
 
             /// @brief The duration of the splash screen in milliseconds
             int splashDuration = 2000;
-            /// @brief The tasks that the application will execute
+            /// @brief All available screens for the App
             std::vector<miku::ux::Screen*> screens;
             /// @brief The display that the application will render to
             ux::Display* display;

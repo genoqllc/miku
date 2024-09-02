@@ -22,7 +22,7 @@ namespace miku::ux::screens {
             void Render() {
                 this->GetDisplay()->Fill();
 
-                float currentSyllable = this->dataValues["POT_SYLL_CURRENT"];
+                uint16_t currentSyllable = this->state->VowelPotentiometer;
 
                 char buffer[32];
                 // sprintf(buffer, "RAW: %.1f", currentSyllable);

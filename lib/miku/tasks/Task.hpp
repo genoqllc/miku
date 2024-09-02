@@ -3,16 +3,18 @@
 #define MIKU_TASKS_TASK_HPP
 
 #include "../Flags.hpp"
+#include "../data/State.hpp"
 
 namespace miku::tasks {
     class Task {
         public:
-            Task(daisy::DaisySeed hardware, std::string code, long timeout, bool enabled = true) {
+            Task(daisy::DaisySeed hardware, data::State* state, std::string code, long timeout, bool enabled = true) {
                 this->timeout = timeout;
                 this->enabled = enabled;
                 this->dataValues = std::map<std::string, float>();
                 this->hardware = hardware;
                 this->code = code;
+                this->state = state;
             }
 
             virtual void Execute() {
@@ -79,6 +81,7 @@ namespace miku::tasks {
             std::string code;
             /// @brief A mask of dependencies that this task provides
             DependencyFlags dependenciesProvided = DependencyFlags::None;
+            data::State* state;
         private:
             unsigned long timeout;
             unsigned long lastExecution = -1;

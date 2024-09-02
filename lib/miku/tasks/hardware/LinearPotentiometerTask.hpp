@@ -6,7 +6,7 @@
 namespace miku::tasks::hardware {
     class LinearPotentiometerTask : public Task {
         public:
-            LinearPotentiometerTask(daisy::DaisySeed hardware, unsigned short pin, std::string code, uint16_t* value) : Task(hardware, code, 50UL) {
+            LinearPotentiometerTask(daisy::DaisySeed hardware, data::State* state, unsigned short pin, std::string code, uint16_t* value) : Task(hardware, state, code, 50UL) {
                 this->adcPin = pin;
                 this->currentValue = value;
             }

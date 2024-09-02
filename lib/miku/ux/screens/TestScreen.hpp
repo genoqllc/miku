@@ -24,10 +24,10 @@ namespace miku::ux::screens {
 
                 char buffer[32];
 
-                sprintf(buffer, "LED: %.1f", this->dataValues["LED_STATE"]);
+                sprintf(buffer, "LED: %d", this->state->LedState);
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
-                sprintf(buffer, "SIX: %.1f", this->dataValues["SCRN_INDEX"]);
+                sprintf(buffer, "SIX: %d", this->state->ScreenIndex);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
                 sprintf(buffer, "SPV: %d", this->state->ScreenSelectionPotentiometer);

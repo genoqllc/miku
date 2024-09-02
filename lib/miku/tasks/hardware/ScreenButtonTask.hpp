@@ -8,7 +8,7 @@
 namespace miku::tasks::hardware {
     class ScreenButtonTask : public Task {
         public:
-            ScreenButtonTask(daisy::DaisySeed hardware, int pin) : Task(hardware, "SB", 100UL) {
+            ScreenButtonTask(daisy::DaisySeed hardware, data::State* state, int pin) : Task(hardware, state, "SB", 100UL) {
                 this->dataValues["SCREEN_BUTTON_INIT"] = 0.0f;
                 this->dataValues["SCREEN_BUTTON_PIN"] = (float)pin;
 

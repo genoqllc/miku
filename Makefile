@@ -25,4 +25,4 @@ dfu-id:
 	# TODO combo this with udev-rules
 	@dfu-util -l | \
 		grep --max-count 1 "Found DFU" | \
-		sed -n 's/.*\[\([0-9a-fA-F]\+\):\([0-9a-fA-F]\+\)\].*/ATTRS{idVendor}=="\1", ATTRS{idProduct}=="\2", MODE="660", GROUP="plugdev", TAG+="uaccess"/p'
+		sed -n 's/.*\[\([0-9a-fA-F]\+\):\([0-9a-fA-F]\+\)\].*/ATTRS{idVendor}=="\1", ATTRS{idProduct}=="\2", MODE="660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="daisy"/p'

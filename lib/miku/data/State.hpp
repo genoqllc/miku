@@ -19,7 +19,13 @@ namespace miku::data {
             uint16_t VowelJack = 0.0f;
             uint16_t VowelJackPluggedIn = false;
             uint16_t ConsonantPotentiometer = 0.0f;
-            uint16_t ConsonantJackPluggedIn = false;
+            bool ConsonantJackPluggedIn = false;
+
+            bool LedState = false;
+
+            bool MidiHeartbeat = false;
+            uint16_t MidiEventCount = 0;
+            float MidiBpm = 0.0f;
     };
 }
 

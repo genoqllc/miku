@@ -9,7 +9,7 @@
 namespace miku::tasks::hardware {
     class SetSyllableTask : public Task {
         public:
-            SetSyllableTask(daisy::DaisySeed hardware) : Task(hardware, "SLT", 100UL) {
+            SetSyllableTask(daisy::DaisySeed hardware, data::State* state) : Task(hardware, state, "SLT", 100UL) {
                 
             }
 
