@@ -13,6 +13,7 @@ namespace miku::ux {
     class Screen {
         public:
             Screen(Display* display, data::State* state, std::string code, unsigned short top = 0, unsigned short left = 0) {
+                state->Logger->Info("ctor for screen %s", code.c_str());
                 this->state = state;
                 this->code = code;
                 this->display = display;

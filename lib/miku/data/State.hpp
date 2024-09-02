@@ -1,6 +1,8 @@
 #ifndef MIKU_DATA_STATE_HPP
 #define MIKU_DATA_STATE_HPP
 
+#include "../utils/Logger.hpp"
+
 namespace miku::data {
     class State {
         public:
@@ -26,6 +28,8 @@ namespace miku::data {
             bool MidiHeartbeat = false;
             uint16_t MidiEventCount = 0;
             float MidiBpm = 0.0f;
+
+            utils::Logger* Logger;
     };
 }
 

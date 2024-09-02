@@ -33,6 +33,7 @@
 #include "tasks/hardware/MidiRelayTask.hpp"
 
 #include "data/State.hpp"
+#include "utils/Logger.hpp"
 
 namespace miku {
     /// @brief The top level application container. Has tasks that do work and screens that show the result of that work.
@@ -48,13 +49,20 @@ namespace miku {
                 this->hardware = hardware;
                 this->hardware.Init();
 
+                this->logger = new utils::Logger(this->hardware, true);
+                logger->Info("Miku starting up...");
+                this->state->Logger = this->logger;
+
                 this->midiHardware = new miku::tasks::hardware::MidiHardware(this->state, hardware, 14, 13);
                 //this->midiHardware->Init();
 
                 ux::MikuOledDisplay mikuDisplay;
                 this->display = new ux::Display(hardware, mikuDisplay);
 
+                logger->Info("Building screens");
                 this->buildScreens();
+
+                logger->Info("Building tasks");
                 this->buildTasks();
 
                 // Map screen data dependencies to tasks manually for complex structures
@@ -70,14 +78,17 @@ namespace miku {
                     }
                 }
 
+                logger->Info("Initializing ADC");
                 this->initAdc();
 
+                logger->Info("Enabling tasks");
                 this->enableTasks();
             }
 
             void enableTasks() {
                 for (miku::tasks::Task* task : this->tasks) {
                     if (task != nullptr) {
+                        logger->Info("Enabling task %s", task->GetCode().c_str());
                         task->Enable();
                     }
                 }
@@ -113,6 +124,7 @@ namespace miku {
 
             /// @brief Main while loop of the application
             void Run() {
+                logger->Info("Rendering splash screen, version %s", this->GetVersion().c_str());
                 miku::ux::screens::SplashScreen* splashScreen = new miku::ux::screens::SplashScreen {
                     this->GetDisplay(),
                     this->state,
@@ -121,11 +133,17 @@ namespace miku {
                 splashScreen->Render();
                 this->GetDisplay()->Invalidate();
                 daisy::System::Delay(splashDuration);
+
+                logger->Info("Splash done, starting main loop");
                 
                 this->GetDisplay()->Fill(false);
                 this->GetDisplay()->Invalidate();
 
                 unsigned long lastRender = daisy::System::GetNow();
+
+                // Ensure currentScreen is set
+                this->state->ScreenIndex = 0;
+                this->currentScreen = screens[this->state->ScreenIndex];
 
                 while (!this->interrupt) {
                     this->checkTasks();
@@ -134,10 +152,11 @@ namespace miku {
 
                     if (now - lastScreenCheck > 100) {
                         lastScreenCheck = now;
-                        this->desiredScreenIndex = 0; this->determineDesiredScreenIndex();
+                        this->desiredScreenIndex = this->determineDesiredScreenIndex();
                     }
 
                     if (this->desiredScreenIndex != this->state->ScreenIndex) {
+                        logger->Info("Switching to screen index %d", this->desiredScreenIndex);
                         this->state->ScreenIndex = desiredScreenIndex;
                         this->currentScreen = screens[this->state->ScreenIndex];
                     }
@@ -146,6 +165,8 @@ namespace miku {
                         lastRender = now;
                         // TODO change to bind the state instead of the data bag
                         // currentScreen->DataBind(this->dataValues);
+
+                        logger->Info("Rendering screen %d", this->state->ScreenIndex);
 
                         currentScreen->Render();
                     }
@@ -192,19 +213,19 @@ namespace miku {
                         this->GetDisplay(),
                         this->state,
                         "Screen 1"
-                    }  
-                    // new miku::ux::screens::PotTestScreen {
-                    //     this->GetDisplay(),
-                    //     this->state
-                    // },
-                    // new miku::ux::screens::MidiEventsScreen {
-                    //     this->GetDisplay(),
-                    //     this->state
-                    // },               
-                    // new miku::ux::screens::SyllableScreen {
-                    //     this->GetDisplay(),
-                    //     this->state
-                    // }
+                    },
+                    new miku::ux::screens::PotTestScreen {
+                        this->GetDisplay(),
+                        this->state
+                    },
+                    new miku::ux::screens::MidiEventsScreen {
+                        this->GetDisplay(),
+                        this->state
+                    },               
+                    new miku::ux::screens::SyllableScreen {
+                        this->GetDisplay(),
+                        this->state
+                    }
                 };
             }
 
@@ -258,6 +279,7 @@ namespace miku {
             /// @brief Collection of all data values collected from tasks
             std::map<std::string, float> dataValues;
             data::State* state;
+            utils::Logger* logger;
 
             unsigned long lastScreenCheck = 0;
     };
