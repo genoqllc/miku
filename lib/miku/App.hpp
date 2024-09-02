@@ -41,7 +41,6 @@ namespace miku {
         public:
             App(daisy::DaisySeed hardware) {
                 this->version = "v0.0.1a";
-                this->dataValues = std::map<std::string, float>();
 
                 // Initialize the world state -- the only time this should happen
                 this->state = new data::State();
@@ -246,10 +245,12 @@ namespace miku {
             unsigned short determineDesiredScreenIndex() {
                 uint16_t screenPotCurrent = state->ScreenSelectionPotentiometer;
                 // TODO protect against div by zero
-                //return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
-                //return Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
 
-                return 0;
+                uint16_t desiredScreenIndex =  Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
+
+                this->state->Logger->Info("Screen pot %d --> index %d", screenPotCurrent, desiredScreenIndex);
+
+                return desiredScreenIndex;
             }
 
             /// @brief The duration of the splash screen in milliseconds
@@ -270,15 +271,13 @@ namespace miku {
             miku::ux::Screen* headerScreen;
             /// @brief The screen index we want to show based on the selection mechanism (current: POT_SCRN)
             unsigned short desiredScreenIndex = 0;
-            /// @brief The screen index that's currently being displayed
-            unsigned short currentScreenIndex = -1;
             /// @brief The screen that's currently being displayed
             miku::ux::Screen* currentScreen;
             /// @brief Tasks registered with the app
             std::vector<miku::tasks::Task*> tasks;
-            /// @brief Collection of all data values collected from tasks
-            std::map<std::string, float> dataValues;
+            /// @brief The state of the XXI The World
             data::State* state;
+            /// @brief General logging utility
             utils::Logger* logger;
 
             unsigned long lastScreenCheck = 0;
