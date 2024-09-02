@@ -12,7 +12,7 @@
 namespace miku::ux::screens {
     class MidiEventsScreen : public miku::ux::Screen {
         public:
-            MidiEventsScreen(Display* display) : Screen(display, "ME") {
+            MidiEventsScreen(Display* display, data::State* state) : Screen(display, state, "ME") {
                 this->dependencyFlags = (DependencyFlags)(this->dependencyFlags | DependencyFlags::MidiEvents);
             }
 

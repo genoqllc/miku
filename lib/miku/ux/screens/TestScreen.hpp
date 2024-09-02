@@ -13,7 +13,7 @@
 namespace miku::ux::screens {
     class TestScreen : public miku::ux::Screen {
         public:
-            TestScreen(Display* display, std::string someString) : Screen(display, "TS") {
+            TestScreen(Display* display, data::State* state, std::string someString) : Screen(display, state, "TS") {
                 this->someString = someString;
             }
 
@@ -24,20 +24,14 @@ namespace miku::ux::screens {
 
                 char buffer[32];
 
-                sprintf(buffer, "DVC: %d", this->dataValues.size());
-                this->GetDisplay()->DrawStringByRow(2, 64, buffer);
-
-                sprintf(buffer, "Bound: %.3f", this->dataValues["SCREEN_BUTTON_PRESSED"]);
+                sprintf(buffer, "LED: %.1f", this->dataValues["LED_STATE"]);
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
-                sprintf(buffer, "DBT: %.3f", this->dataValues["SCREEN_BUTTON_TICK"]);
+                sprintf(buffer, "SIX: %.1f", this->dataValues["SCRN_INDEX"]);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
-                sprintf(buffer, "LED: %.1f", this->dataValues["LED_STATE"]);
+                sprintf(buffer, "SPV: %d", this->state->ScreenSelectionPotentiometer);
                 this->GetDisplay()->DrawStringByRow(5, 0, buffer);
-
-                sprintf(buffer, "SIX: %.1f", this->dataValues["SCRN_INDEX"]);
-                this->GetDisplay()->DrawStringByRow(5, 64, buffer);
 
                 this->GetDisplay()->RequestInvalidate();
             }

@@ -13,7 +13,7 @@
 namespace miku::ux::screens {
     class PotTestScreen : public miku::ux::Screen {
         public:
-            PotTestScreen(Display* display) : Screen(display, "PT") {
+            PotTestScreen(Display* display, data::State* state) : Screen(display, state, "PT") {
 
             }
 

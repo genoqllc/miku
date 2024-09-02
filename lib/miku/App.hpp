@@ -24,12 +24,15 @@
 #include "ux/screens/PotTestScreen.hpp"
 #include "ux/screens/ButtonTestScreen.hpp"
 #include "ux/screens/MidiEventsScreen.hpp"
+#include "ux/screens/SyllableScreen.hpp"
 
 // Tasks
 #include "tasks/hardware/ScreenButtonTask.hpp"
 #include "tasks/hardware/BlinkyLedTask.hpp"
 #include "tasks/hardware/LinearPotentiometerTask.hpp"
 #include "tasks/hardware/MidiRelayTask.hpp"
+
+#include "data/State.hpp"
 
 namespace miku {
     /// @brief The top level application container. Has tasks that do work and screens that show the result of that work.
@@ -39,10 +42,13 @@ namespace miku {
                 this->version = "v0.0.1a";
                 this->dataValues = std::map<std::string, float>();
 
+                // Initialize the world state -- the only time this should happen
+                this->state = new data::State();
+
                 this->hardware = hardware;
                 this->hardware.Init();
 
-                this->midiHardware = new miku::tasks::hardware::MidiHardware(hardware, 14, 13);
+                this->midiHardware = new miku::tasks::hardware::MidiHardware(this->state, hardware, 14, 13);
                 //this->midiHardware->Init();
 
                 ux::MikuOledDisplay mikuDisplay;
@@ -92,14 +98,14 @@ namespace miku {
                             adcConfigs[configuredChannelCount].InitSingle(hardware.GetPin(adcPin));
                             task->SetAdcChannelIndex(configuredChannelCount);
 
-                            display->DrawStringByRow(configuredChannelCount, 0, "ADC " + task->GetCode() + std::to_string(adcPin) + " " + std::to_string(configuredChannelCount));
+                            // display->DrawStringByRow(configuredChannelCount, 0, "ADC " + task->GetCode() + std::to_string(adcPin) + " " + std::to_string(configuredChannelCount));
                             configuredChannelCount++;
                         }
                     }
                 }
-
-                display->Invalidate();
-                hardware.system.Delay(5000);
+ 
+                // display->Invalidate();
+                // hardware.system.Delay(5000);
 
                 this->hardware.adc.Init(adcConfigs, configuredChannelCount);
                 this->hardware.adc.Start();
@@ -109,6 +115,7 @@ namespace miku {
             void Run() {
                 miku::ux::screens::SplashScreen* splashScreen = new miku::ux::screens::SplashScreen {
                     this->GetDisplay(),
+                    this->state,
                     this->version
                 };
                 splashScreen->Render();
@@ -181,18 +188,22 @@ namespace miku {
             /// @brief Declares the screens that should be available
             void buildScreens() {
                 this->screens = std::vector<ux::Screen*> {
-                    new miku::ux::screens::MidiEventsScreen {
-                        this->GetDisplay()
-                    },
                     new miku::ux::screens::TestScreen{
                         this->GetDisplay(),
+                        this->state,
                         "Screen 1"
-                    },                 
+                    },  
                     new miku::ux::screens::PotTestScreen {
-                        this->GetDisplay()
+                        this->GetDisplay(),
+                        this->state
                     },
-                    new miku::ux::screens::ButtonTestScreen {
-                        this->GetDisplay()
+                    new miku::ux::screens::MidiEventsScreen {
+                        this->GetDisplay(),
+                        this->state
+                    },               
+                    new miku::ux::screens::SyllableScreen {
+                        this->GetDisplay(),
+                        this->state
                     }
                 };
             }
@@ -203,15 +214,15 @@ namespace miku {
                     new miku::tasks::hardware::MidiRelayTask(hardware, this->midiHardware),
                     new miku::tasks::hardware::ScreenButtonTask(hardware, 28),
                     new miku::tasks::hardware::BlinkyLedTask(hardware),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SYLL"),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_SCRN")
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 20, "POT_SYLL", &this->state->VowelPotentiometer),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
                 };
             }
 
             /// @brief Determines the screen index that should be shown based on the current potentiometer value
             /// @return The index that should be shown - note, this does NOT set the desired/current screen index
             unsigned short determineDesiredScreenIndex() {
-                float screenPotCurrent = this->dataValues["POT_SCRN_CURRENT"];
+                uint16_t screenPotCurrent = state->ScreenSelectionPotentiometer;
                 // TODO protect against div by zero
                 //return (unsigned short)daisysp::fclamp((screenPotCurrent * 100.0) / (100 / this->screens.size()), 0, this->screens.size() - 1);
                 return Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
@@ -243,6 +254,7 @@ namespace miku {
             std::vector<miku::tasks::Task*> tasks;
             /// @brief Collection of all data values collected from tasks
             std::map<std::string, float> dataValues;
+            data::State* state;
 
             unsigned long lastScreenCheck = 0;
     };

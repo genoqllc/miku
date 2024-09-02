@@ -11,7 +11,7 @@ namespace miku::ux::screens {
     /// @brief The introductory splash screen
     class SplashScreen : public miku::ux::Screen {
         public:
-            SplashScreen(Display* display, std::string version) : Screen(display, "SP") {
+            SplashScreen(Display* display, data::State* state, std::string version) : Screen(display, state, "SP") {
                 this->version = version;
             }
 
