@@ -15,7 +15,11 @@ namespace miku::tasks::hardware {
                 char keyBuffer[32];
                 this->sampleCount++;
 
+                state->Logger->Debug("LinPot %s - Reading ADC pin %d", this->code.c_str(), this->adcPin);
+
                 *(this->currentValue) = this->hardware.adc.Get(adcChannelIndex);
+
+                state->Logger->Debug("LinPot %s - Read value %d", this->code.c_str(), *(this->currentValue));
 
                 // if (*this->currentValue > this->maxValue) {
                 //     this->maxValue = *this->currentValue;
@@ -28,24 +32,24 @@ namespace miku::tasks::hardware {
                 // TODO error correction/averaging
                 //this->averageValue = this->averageValue + this->currentValue / this->sampleCount;
                 
-                // TODO figure out if we want to keep this many indicies thing (i think no)
-                sprintf(keyBuffer, "%s_CURRENT", this->code.c_str());
-                this->dataValues[keyBuffer] = *this->currentValue;
+                // TODO push these to a dedicated class in state
+                // sprintf(keyBuffer, "%s_CURRENT", this->code.c_str());
+                // this->dataValues[keyBuffer] = *this->currentValue;
 
-                sprintf(keyBuffer, "%s_MIN", this->code.c_str());
-                this->dataValues[keyBuffer] = this->minValue;
+                // sprintf(keyBuffer, "%s_MIN", this->code.c_str());
+                // this->dataValues[keyBuffer] = this->minValue;
 
-                sprintf(keyBuffer, "%s_MAX", this->code.c_str());
-                this->dataValues[keyBuffer] = this->maxValue;
+                // sprintf(keyBuffer, "%s_MAX", this->code.c_str());
+                // this->dataValues[keyBuffer] = this->maxValue;
 
-                sprintf(keyBuffer, "%s_AVG", this->code.c_str());
-                this->dataValues[keyBuffer] = this->averageValue;
+                // sprintf(keyBuffer, "%s_AVG", this->code.c_str());
+                // this->dataValues[keyBuffer] = this->averageValue;
 
-                sprintf(keyBuffer, "%s_ADC_PIN", this->code.c_str());
-                this->dataValues[keyBuffer] = (float)this->adcPin;
+                // sprintf(keyBuffer, "%s_ADC_PIN", this->code.c_str());
+                // this->dataValues[keyBuffer] = (float)this->adcPin;
 
-                sprintf(keyBuffer, "%s_ADC_CHANNEL", this->code.c_str());
-                this->dataValues[keyBuffer] = (float)this->adcChannelIndex;
+                // sprintf(keyBuffer, "%s_ADC_CHANNEL", this->code.c_str());
+                // this->dataValues[keyBuffer] = (float)this->adcChannelIndex;
 
                 Task::Execute();
             }

@@ -6,6 +6,7 @@
 #include "../Task.hpp"
 #include "daisy_seed.h"
 #include "MidiHardware.hpp"
+#include "../../midi/midi.hpp"
 
 namespace miku::tasks::hardware {
     const int MIDI_PPQN = 24;
@@ -21,6 +22,8 @@ namespace miku::tasks::hardware {
             }
 
             void Init() {
+                this->state->Logger->Info("MIDI Relay Task Init");
+
                 // TODO Replace this fake Sysex with real stuff from the other Tasks.
                 std::vector<uint8_t> bytes = {
                     0xF0, 0x43, 0x79, 0x09, 0x00, 0x50, // header
@@ -40,18 +43,15 @@ namespace miku::tasks::hardware {
                 // TODO make this a quarter note based on incoming BPM
                 if (now - this->lastHeartbeatTime >= 500) {
                     this->lastHeartbeatTime = now;
-                    this->heartbeat = !this->heartbeat;
-                    this->dataValues["MIDI_HEARTBEAT"] = this->heartbeat;
+                    this->state->MidiHeartbeat = !this->state->MidiHeartbeat;
                 }
 
                 while(this->midiHardware->HasEvents()) {
-                    this->totalEventCount++;
+                    this->state->MidiEventInCount++;
                     daisy::MidiEvent msg = this->midiHardware->PopEvent();
 
                     this->HandleMessage(msg, now);
                 }
-
-                this->dataValues["MIDI_EVENT_COUNT"] = (float)this->totalEventCount;
             }
 
             /// @brief Internal handler for MIDI messages.
@@ -65,6 +65,8 @@ namespace miku::tasks::hardware {
                     // TODO properly calculate channel based on incoming message
                         case daisy::MidiMessageType::NoteOn:
                         {
+                            state->Logger->Info("MIDI NoteOn: %d", midi::GetNameFromNoteNumber((uint8_t)msg.data[0]));
+
                             uint8_t bytes[3] = {0x90, 0x00, 0x00};
                             bytes[1] = msg.data[0];
                             bytes[2] = msg.data[1];
@@ -86,11 +88,14 @@ namespace miku::tasks::hardware {
                                 this->clockEventsReceived++;
                                 if (this->clockEventsReceived >= MIDI_PPQN)
                                 {
+                                    state->Logger->Info("Received %d MIDI clock events", this->clockEventsReceived);
+
                                     this->clockEventsReceived = 0;                                
                                     uint32_t diff = eventTime - this->lastBpmClockTime;
-                                    this->bpm = 60000.0f / diff;
-                                    this->dataValues["MIDI_BPM"] = this->bpm;
                                     this->lastBpmClockTime = eventTime;
+                                    this->state->MidiBpm = 60000.0f / diff;
+
+                                    state->Logger->Info("New BPM: %.1f", this->state->MidiBpm);
                                 }
                             }
                         }
@@ -117,16 +122,9 @@ namespace miku::tasks::hardware {
             unsigned short rxPin = 0;
             unsigned short txPin = 0;
 
-            float bpm = 100.0f;
-
-            unsigned long totalEventCount = 0;
-
             uint32_t lastBpmClockTime = 0;
             uint32_t clockEventsReceived = 0;
-
             uint32_t lastHeartbeatTime = 0;
-
-            bool heartbeat = false;
     };
 }
 #endif

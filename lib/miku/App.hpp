@@ -48,12 +48,11 @@ namespace miku {
                 this->hardware = hardware;
                 this->hardware.Init();
 
-                this->logger = new utils::Logger(this->hardware, true);
+                this->logger = new utils::Logger(this->hardware, utils::LogLevel::INFO, true);
                 logger->Info("Miku starting up...");
                 this->state->Logger = this->logger;
 
                 this->midiHardware = new miku::tasks::hardware::MidiHardware(this->state, hardware, 14, 13);
-                //this->midiHardware->Init();
 
                 ux::MikuOledDisplay mikuDisplay;
                 this->display = new ux::Display(hardware, mikuDisplay);
@@ -107,15 +106,10 @@ namespace miku {
                         if (adcPin >= 0) {
                             adcConfigs[configuredChannelCount].InitSingle(hardware.GetPin(adcPin));
                             task->SetAdcChannelIndex(configuredChannelCount);
-
-                            // display->DrawStringByRow(configuredChannelCount, 0, "ADC " + task->GetCode() + std::to_string(adcPin) + " " + std::to_string(configuredChannelCount));
                             configuredChannelCount++;
                         }
                     }
                 }
- 
-                // display->Invalidate();
-                // hardware.system.Delay(5000);
 
                 this->hardware.adc.Init(adcConfigs, configuredChannelCount);
                 this->hardware.adc.Start();
@@ -149,7 +143,7 @@ namespace miku {
 
                     unsigned long now = daisy::System::GetNow();
 
-                    if (now - lastScreenCheck > 100) {
+                    if (now - lastScreenCheck > 250) {
                         lastScreenCheck = now;
                         this->desiredScreenIndex = this->determineDesiredScreenIndex();
                     }
@@ -162,10 +156,7 @@ namespace miku {
 
                     if(now - lastRender > 100) {
                         lastRender = now;
-                        // TODO change to bind the state instead of the data bag
-                        // currentScreen->DataBind(this->dataValues);
-
-                        logger->Info("Rendering screen %d", this->state->ScreenIndex);
+                        logger->Debug("Rendering screen %d", this->state->ScreenIndex);
 
                         currentScreen->Render();
                     }
@@ -231,12 +222,12 @@ namespace miku {
             /// @brief Declares the tasks to run
             void buildTasks() {
                 this->tasks = std::vector<miku::tasks::Task*> {
-                    new miku::tasks::hardware::BlinkyLedTask(hardware, this->state)
-                    // new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware),
+                    new miku::tasks::hardware::BlinkyLedTask(hardware, this->state),
+                    new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware),
                     // new miku::tasks::hardware::ScreenButtonTask(hardware, this->state, 28),
                     
                     // new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 20, "POT_SYLL", &this->state->VowelPotentiometer),
-                    // new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
                 };
             }
 

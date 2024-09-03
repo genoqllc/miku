@@ -22,7 +22,8 @@ public:
     /// @return The index that was selected by the pot reading.
     static uint16_t ReadingToIndex(uint16_t potentiometerReading, int itemCount)
     {
-        return clamp((potentiometerReading / 65535 / itemCount), 0, itemCount - 1);
+        float rawSelection = (potentiometerReading / 65535.0f * itemCount);
+        return clamp((int)rawSelection, 0, itemCount - 1);
     }
 private:
     static uint16_t clamp(uint16_t value, uint16_t min, uint16_t max)

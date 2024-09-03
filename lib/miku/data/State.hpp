@@ -26,7 +26,8 @@ namespace miku::data {
             bool LedState = false;
 
             bool MidiHeartbeat = false;
-            uint16_t MidiEventCount = 0;
+            uint16_t MidiEventInCount = 0;
+            uint16_t MidiEventOutCount = 0;
             float MidiBpm = 0.0f;
 
             utils::Logger* Logger;

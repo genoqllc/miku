@@ -24,7 +24,7 @@ namespace miku::ux::screens {
                 sprintf(buffer, "MIDI Events     %s", heartbeat ? "/" : "\\");
                 this->GetDisplay()->DrawStringByRow(1, 0, buffer);
 
-                sprintf(buffer, "Total Ev: %d", this->state->MidiEventCount);
+                sprintf(buffer, "Total Ev: %d", this->state->MidiEventInCount);
                 this->GetDisplay()->DrawStringByRow(2, 0, buffer);
 
                 sprintf(buffer, "BufferEv: %d", this->midiEvents->GetNumElements());

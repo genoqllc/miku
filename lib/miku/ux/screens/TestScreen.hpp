@@ -18,7 +18,7 @@ namespace miku::ux::screens {
             }
 
             void Render() {
-                this->state->Logger->Info("Rendering TestScreen");
+                this->state->Logger->Debug("Rendering TestScreen");
 
                 this->GetDisplay()->Fill();
                 this->GetDisplay()->DrawStringByRow(1, 0, "This is a test");
