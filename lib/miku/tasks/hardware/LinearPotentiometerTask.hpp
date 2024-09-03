@@ -12,14 +12,13 @@ namespace miku::tasks::hardware {
             }
 
             void Execute() {
-                char keyBuffer[32];
                 this->sampleCount++;
 
-                state->Logger->Debug("LinPot %s - Reading ADC pin %d", this->code.c_str(), this->adcPin);
+                // state->Logger->Debug("LinPot %s - Reading ADC pin %d", this->code.c_str(), this->adcPin);
 
                 *(this->currentValue) = this->hardware.adc.Get(adcChannelIndex);
 
-                state->Logger->Debug("LinPot %s - Read value %d", this->code.c_str(), *(this->currentValue));
+                // state->Logger->Debug("LinPot %s - Read value %d", this->code.c_str(), *(this->currentValue));
 
                 // if (*this->currentValue > this->maxValue) {
                 //     this->maxValue = *this->currentValue;

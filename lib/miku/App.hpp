@@ -226,7 +226,7 @@ namespace miku {
                     new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware),
                     // new miku::tasks::hardware::ScreenButtonTask(hardware, this->state, 28),
                     
-                    // new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 20, "POT_SYLL", &this->state->VowelPotentiometer),
+                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 20, "POT_SYLL", &this->state->VowelPotentiometer),
                     new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
                 };
             }
@@ -238,9 +238,6 @@ namespace miku {
                 // TODO protect against div by zero
 
                 uint16_t desiredScreenIndex =  Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
-
-                this->state->Logger->Info("Screen pot %d --> index %d", screenPotCurrent, desiredScreenIndex);
-
                 return desiredScreenIndex;
             }
 

@@ -65,7 +65,7 @@ namespace miku::tasks::hardware {
                     // TODO properly calculate channel based on incoming message
                         case daisy::MidiMessageType::NoteOn:
                         {
-                            state->Logger->Info("MIDI NoteOn: %d", midi::GetNameFromNoteNumber((uint8_t)msg.data[0]));
+                            state->Logger->Info("MIDI NoteOn: %d", midi::GetNameFromNoteNumber((uint8_t)msg.data[0]).c_str());
 
                             uint8_t bytes[3] = {0x90, 0x00, 0x00};
                             bytes[1] = msg.data[0];
