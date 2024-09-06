@@ -11,7 +11,6 @@ namespace miku::tasks {
             Task(daisy::DaisySeed hardware, data::State* state, std::string code, long timeout, bool enabled = true) {
                 this->timeout = timeout;
                 this->enabled = enabled;
-                this->dataValues = std::map<std::string, float>();
                 this->hardware = hardware;
                 this->code = code;
                 this->state = state;
@@ -48,22 +47,6 @@ namespace miku::tasks {
                 return false;
             }
 
-            std::map<std::string, float> GetDataValues() {
-                return this->dataValues;
-            }
-
-            short GetAdcPin() {
-                return this->adcPin;
-            }
-
-            short GetAdcChannelIndex() {
-                return this->adcChannelIndex;
-            }
-
-            void SetAdcChannelIndex(short index) {
-                this->adcChannelIndex = index;
-            }
-
             std::string GetCode() {
                 return this->code;
             }
@@ -74,14 +57,11 @@ namespace miku::tasks {
                 return this->dependenciesProvided;
             }
         protected:
-            std::map<std::string, float> dataValues;
             daisy::DaisySeed hardware;
-            short adcPin = -1;
-            short adcChannelIndex = -1;
-            std::string code;
             /// @brief A mask of dependencies that this task provides
             DependencyFlags dependenciesProvided = DependencyFlags::None;
             data::State* state;
+            std::string code;
         private:
             unsigned long timeout;
             unsigned long lastExecution = -1;

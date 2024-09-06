@@ -34,7 +34,11 @@ namespace miku::tasks::hardware {
                     0x00, 0xF7  // footer
                 };
 
+                this->state->Logger->Info("Sending fake Sysex message");
+
                 this->midiHardware->SendMessage(bytes);
+
+                this->state->Logger->Info("Sent fake Sysex message");
             }
 
             void Execute() {

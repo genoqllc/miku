@@ -33,6 +33,7 @@
 #include "tasks/hardware/MidiRelayTask.hpp"
 
 #include "data/State.hpp"
+#include "data/PotentiometerState.hpp"
 #include "utils/Logger.hpp"
 
 namespace miku {
@@ -48,9 +49,33 @@ namespace miku {
                 this->hardware = hardware;
                 this->hardware.Init();
 
-                this->logger = new utils::Logger(this->hardware, utils::LogLevel::INFO, true);
+                this->logger = new utils::Logger(this->hardware, utils::LogLevel::DEBUG, true);
                 logger->Info("Miku starting up...");
                 this->state->Logger = this->logger;
+
+                logger->Info("Registering potentiometers");
+
+                // Potentiometer config
+                // TODO read this from a simpler config
+                auto const pots = std::vector<data::PotentiometerState*> {
+                    new data::PotentiometerState {
+                        "POT_SYLL",
+                        20
+                    },
+                    new data::PotentiometerState {
+                        "POT_SCRN",
+                        this->SCREEN_POT_PIN_NUMBER
+                    }
+                };
+
+                logger->Info("Registering %d potentiometers", pots.size());
+
+                for (auto pot : pots) {
+                    logger->Info("Registering pot %s on pin %d", pot->Code.c_str(), pot->PinNumber);
+                    this->state->Potentiometers->emplace(pot->PinNumber, pot);
+                }
+
+                logger->Info("Pots registered in state");
 
                 this->midiHardware = new miku::tasks::hardware::MidiHardware(this->state, hardware, 14, 13);
 
@@ -63,7 +88,10 @@ namespace miku {
                 logger->Info("Building tasks");
                 this->buildTasks();
 
+                logger->Info("Mapping screen data dependencies");
+
                 // Map screen data dependencies to tasks manually for complex structures
+                // TODO this might be obsoleted b/c now we have shared state
                 for (ux::Screen* screen : this->screens) {
                     for (miku::tasks::Task* task : this->tasks) {
                         if (task->GetDependenciesProvided() & screen->GetDependencyFlags() & DependencyFlags::MidiEvents) {
@@ -93,25 +121,30 @@ namespace miku {
             }
 
             void initAdc() {
+                display->Fill(false);
+
                 daisy::AdcChannelConfig adcConfigs[16];
 
                 unsigned short configuredChannelCount = 0;
 
-                display->Fill(false);
-                
-                for (miku::tasks::Task* task : this->tasks) {
-                    if (task != nullptr) {
-                        short adcPin = task->GetAdcPin();
+                for (auto potEntries : *this->state->Potentiometers) {
+                    auto pot = potEntries.second;
 
-                        if (adcPin >= 0) {
-                            adcConfigs[configuredChannelCount].InitSingle(hardware.GetPin(adcPin));
-                            task->SetAdcChannelIndex(configuredChannelCount);
-                            configuredChannelCount++;
-                        }
+                    this->logger->Info("Configuring pot %s on pin %d with ADC index %d", pot->Code.c_str(), pot->PinNumber, configuredChannelCount);
+
+                    if (pot != nullptr) {
+                        adcConfigs[configuredChannelCount].InitSingle(hardware.GetPin(pot->PinNumber));
+                        pot->ADCIndex = configuredChannelCount;
+                        configuredChannelCount++;
                     }
                 }
 
+                this->logger->Info("Configured %d ADC channels, initting ADC", configuredChannelCount);
+
                 this->hardware.adc.Init(adcConfigs, configuredChannelCount);
+
+                this->logger->Info("ADC initted, starting");
+
                 this->hardware.adc.Start();
             }
 
@@ -221,23 +254,40 @@ namespace miku {
 
             /// @brief Declares the tasks to run
             void buildTasks() {
+                this->logger->Info("Registering static tasks");
+
                 this->tasks = std::vector<miku::tasks::Task*> {
                     new miku::tasks::hardware::BlinkyLedTask(hardware, this->state),
-                    new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware),
-                    // new miku::tasks::hardware::ScreenButtonTask(hardware, this->state, 28),
+                    new miku::tasks::hardware::MidiRelayTask(hardware, this->state, this->midiHardware)
+                };    
+
+                this->logger->Info("Registering potentiometer tasks");            
+
+                for (auto item : *this->state->Potentiometers) {
+                    auto potState = item.second;
+
+                    this->logger->Info("Registering potentiometer task %s", potState->Code.c_str());
+
+                    tasks::hardware::LinearPotentiometerTask* potTask = new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, potState);
+
+                    this->logger->Info("Pot task created, pushing_back");
                     
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 20, "POT_SYLL", &this->state->VowelPotentiometer),
-                    new miku::tasks::hardware::LinearPotentiometerTask(hardware, this->state, 21, "POT_SCRN", &this->state->ScreenSelectionPotentiometer)
-                };
+                    this->tasks.push_back(potTask);
+                }
+
+                this->logger->Info("Done registering tasks");
             }
 
             /// @brief Determines the screen index that should be shown based on the current potentiometer value
             /// @return The index that should be shown - note, this does NOT set the desired/current screen index
             unsigned short determineDesiredScreenIndex() {
-                uint16_t screenPotCurrent = state->ScreenSelectionPotentiometer;
-                // TODO protect against div by zero
+                // TODO unhardcode
+                uint16_t screenPotCurrent = this->state->Potentiometers->at(this->SCREEN_POT_PIN_NUMBER)->CurrentValue;
 
                 uint16_t desiredScreenIndex =  Clamper::ReadingToIndex(screenPotCurrent, this->screens.size());
+
+                logger->Debug("Desired screen index: %d", desiredScreenIndex);
+
                 return desiredScreenIndex;
             }
 
@@ -269,6 +319,8 @@ namespace miku {
             utils::Logger* logger;
 
             unsigned long lastScreenCheck = 0;
+
+            const u_int8_t SCREEN_POT_PIN_NUMBER = 21;
     };
 }
 

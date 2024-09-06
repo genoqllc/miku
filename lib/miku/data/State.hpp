@@ -2,6 +2,7 @@
 #define MIKU_DATA_STATE_HPP
 
 #include "../utils/Logger.hpp"
+#include "PotentiometerState.hpp"
 
 namespace miku::data {
     class State {
@@ -31,6 +32,8 @@ namespace miku::data {
             float MidiBpm = 0.0f;
 
             utils::Logger* Logger;
+
+            std::map<uint8_t, PotentiometerState*>* Potentiometers = new std::map<uint8_t, PotentiometerState*>();
     };
 }
 
