@@ -1,0 +1,40 @@
+#ifndef MIKU_DATA_STATE_HPP
+#define MIKU_DATA_STATE_HPP
+
+#include "../utils/Logger.hpp"
+#include "PotentiometerState.hpp"
+
+namespace miku::data {
+    class State {
+        public:
+            //static State* XXI_THE_WORLD;
+
+            State() {
+                
+            }
+
+            uint16_t ScreenIndex = 0;
+            uint16_t ScreenSelectionPotentiometer = 0.0f;
+
+            uint16_t VowelIndex = 0;
+            uint16_t ConsonantIndex = 0;
+            uint16_t VowelPotentiometer = 0;
+            uint16_t VowelJack = 0.0f;
+            uint16_t VowelJackPluggedIn = false;
+            uint16_t ConsonantPotentiometer = 0.0f;
+            bool ConsonantJackPluggedIn = false;
+
+            bool LedState = false;
+
+            bool MidiHeartbeat = false;
+            uint16_t MidiEventInCount = 0;
+            uint16_t MidiEventOutCount = 0;
+            float MidiBpm = 0.0f;
+
+            utils::Logger* Logger;
+
+            std::map<uint8_t, PotentiometerState*>* Potentiometers = new std::map<uint8_t, PotentiometerState*>();
+    };
+}
+
+#endif

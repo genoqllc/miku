@@ -2,61 +2,57 @@
 #define MIKU_TASKS_HARDWARE_LINEAR_POTENTIOMETER_TASK_HPP
 
 #include "../Task.hpp"
+#include "../../data/State.hpp"
+#include "../../data/PotentiometerState.hpp"
 
 namespace miku::tasks::hardware {
     class LinearPotentiometerTask : public Task {
         public:
-            LinearPotentiometerTask(daisy::DaisySeed hardware, unsigned short pin, std::string code) : Task(hardware, code, 50UL) {
-                this->adcPin = pin;
+            LinearPotentiometerTask(daisy::DaisySeed hardware, data::State* state, data::PotentiometerState* potentiometerState) : Task(hardware, state, potentiometerState->Code, 50UL) {
+               state->Logger->Info("Linear Potentiometer Task ctor for %s", potentiometerState->Code.c_str());
+                
+                this->potState = potentiometerState;
             }
 
             void Execute() {
-                char keyBuffer[32];
-                this->sampleCount++;
+                this->potState->SampleCount++;
 
-                this->currentValue = this->hardware.adc.GetFloat(adcChannelIndex);
+                state->Logger->Debug("LinPot %s - Reading ADC pin %d", this->potState->Code.c_str(), this->potState->PinNumber);
 
-                if (this->currentValue > this->maxValue) {
-                    this->maxValue = this->currentValue;
+                this->potState->CurrentValue = this->hardware.adc.Get(this->potState->ADCIndex);
+
+                state->Logger->Debug("LinPot %s - Read value %d", this->potState->Code.c_str(), this->potState->CurrentValue);
+
+                if (this->potState->CurrentValue > this->potState->MaxValue) {
+                    this->potState->MaxValue = this->potState->CurrentValue;
                 }
 
-                if (this->currentValue < this->minValue) {
-                    this->minValue = this->currentValue;
+                if (this->potState->CurrentValue < this->potState->MinValue) {
+                    this->potState->MinValue = this->potState->CurrentValue;
                 }
 
-                // TODO error correction/averaging
-                this->averageValue = (this->averageValue + this->currentValue) / this->sampleCount;
-                
-                // TODO figure out if we want to keep this many indicies thing (i think no)
-                sprintf(keyBuffer, "%s_CURRENT", this->code.c_str());
-                this->dataValues[keyBuffer] = this->currentValue;
+                // store the last 20 samples
+                this->potState->RecentSamples.push_back(this->potState->CurrentValue);
+                if (this->potState->RecentSamples.size() > this->potState->MAX_SAMPLES) {
+                    this->potState->RecentSamples.pop_front();
+                }
 
-                sprintf(keyBuffer, "%s_MIN", this->code.c_str());
-                this->dataValues[keyBuffer] = this->minValue;
+                uint32_t sum = std::accumulate(this->potState->RecentSamples.begin(), this->potState->RecentSamples.end(), 0);
+                uint32_t mean = sum / this->potState->RecentSamples.size();
+                this->potState->AvgValue = mean;
 
-                sprintf(keyBuffer, "%s_MAX", this->code.c_str());
-                this->dataValues[keyBuffer] = this->maxValue;
+                uint32_t sumOfSquares = 0;
 
-                sprintf(keyBuffer, "%s_AVG", this->code.c_str());
-                this->dataValues[keyBuffer] = this->averageValue;
+                std::for_each(this->potState->RecentSamples.begin(), this->potState->RecentSamples.end(), [&](uint16_t sample) {
+                    sumOfSquares += (sample - mean) * (sample - mean);
+                });
 
-                sprintf(keyBuffer, "%s_ADC_PIN", this->code.c_str());
-                this->dataValues[keyBuffer] = (float)this->adcPin;
-
-                sprintf(keyBuffer, "%s_ADC_CHANNEL", this->code.c_str());
-                this->dataValues[keyBuffer] = (float)this->adcChannelIndex;
+                this->potState->StdDev = sqrt(sumOfSquares / this->potState->RecentSamples.size());
 
                 Task::Execute();
             }
         private:
-            unsigned short pin = -1;
-            
-            // TODO break this out to support multi-pot
-            float currentValue = 0.0f;
-            float maxValue = -0.0f;
-            float minValue = 9999.0f;
-            float averageValue = 0.0f;
-            unsigned long sampleCount = 0;
+            data::PotentiometerState* potState;
             
     };
 }

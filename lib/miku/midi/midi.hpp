@@ -9,11 +9,11 @@ namespace miku::midi {
 
     const std::string notes[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
 
-    std::string GetNameFromNoteNumber(int note) {
-        return notes[note % 12] + std::to_string(note / 12 - 1);
+    std::string GetNameFromNoteNumber(uint8_t note) {
+        return notes[note % 12] + std::to_string(note / (12 - 1));
     }
 
-    void GetMidiTypeAsString(daisy::MidiEvent& msg, char* str)
+    std::string GetMidiTypeAsString(daisy::MidiEvent& msg, char* str)
     {
         switch(msg.type)
         {
@@ -29,6 +29,8 @@ namespace miku::midi {
             case daisy::ChannelMode: strcpy(str, "ChMd"); break;
             default: strcpy(str, "Unk"); break;
         }
+
+        return str;
     }
 }
 

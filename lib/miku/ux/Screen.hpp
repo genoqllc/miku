@@ -6,12 +6,15 @@
 #include "Display.hpp"
 #include <vector>
 #include <map>
+#include "../data/State.hpp"
 
 namespace miku::ux {
     /// @brief Abstraction for a screen that can be rendered on the display
     class Screen {
         public:
-            Screen(Display* display, std::string code, unsigned short top = 0, unsigned short left = 0) {
+            Screen(Display* display, data::State* state, std::string code, unsigned short top = 0, unsigned short left = 0) {
+                state->Logger->Info("ctor for screen %s", code.c_str());
+                this->state = state;
                 this->code = code;
                 this->display = display;
                 this->top = top;
@@ -47,6 +50,7 @@ namespace miku::ux {
             unsigned short left = 0;
             unsigned short top = 0;
             std::map<std::string, float> dataValues;
+            data::State* state;
             DependencyFlags dependencyFlags = DependencyFlags::None;
         private:
             std::string code;

@@ -13,7 +13,7 @@
 namespace miku::ux::screens {
     class ButtonTestScreen : public miku::ux::Screen {
         public:
-            ButtonTestScreen(Display* display) : Screen(display, "BT") {
+            ButtonTestScreen(Display* display, data::State* state) : Screen(display, state, "BT") {
 
             }
 

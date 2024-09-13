@@ -12,22 +12,25 @@
 namespace miku::ux::screens {
     class MidiEventsScreen : public miku::ux::Screen {
         public:
-            MidiEventsScreen(Display* display) : Screen(display, "ME") {
+            MidiEventsScreen(Display* display, data::State* state) : Screen(display, state, "ME") {
                 this->dependencyFlags = (DependencyFlags)(this->dependencyFlags | DependencyFlags::MidiEvents);
             }
 
             void Render() {
-                this->GetDisplay()->Fill();
-                this->GetDisplay()->DrawStringByRow(1, 0, "MIDI Events");
-
+                this->GetDisplay()->Fill();                
+                
                 char buffer[32];
-                sprintf(buffer, "TSKEvt: %.1f", this->dataValues["MIDI_EVENT_COUNT"]);
+                bool heartbeat = (bool)this->state->MidiHeartbeat;
+                sprintf(buffer, "MIDI Events     %s", heartbeat ? "/" : "\\");
+                this->GetDisplay()->DrawStringByRow(1, 0, buffer);
+
+                sprintf(buffer, "Total Ev: %d", this->state->MidiEventInCount);
                 this->GetDisplay()->DrawStringByRow(2, 0, buffer);
 
-                sprintf(buffer, "DB Evt: %d", this->midiEvents->GetNumElements());
+                sprintf(buffer, "BufferEv: %d", this->midiEvents->GetNumElements());
                 this->GetDisplay()->DrawStringByRow(3, 0, buffer);
 
-                sprintf(buffer, "BPM:    %.1f", this->dataValues["MIDI_BPM"]);
+                sprintf(buffer, "BPM:    %.1f", this->state->MidiBpm);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
                 this->GetDisplay()->RequestInvalidate();

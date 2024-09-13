@@ -181,8 +181,8 @@ class OneBitGraphicsDisplay
     virtual void Update() = 0;
 
   protected:
-    uint16_t currentX_;
-    uint16_t currentY_;
+    uint16_t currentX_ = 0;
+    uint16_t currentY_ = 0;
 };
 
 /** This class is intended as a intermediary class for your actual implementation of the OneBitGraphicsDisplay

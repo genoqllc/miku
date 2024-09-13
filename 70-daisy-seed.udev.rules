@@ -1,1 +1,3 @@
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="660", GROUP="plugdev", TAG+="uaccess"
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="daisy"
+
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="ttydaisydbg%n"

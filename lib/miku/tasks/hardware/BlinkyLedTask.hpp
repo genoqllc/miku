@@ -6,7 +6,7 @@
 namespace miku::tasks::hardware {
     class BlinkyLedTask : public Task {
         public:
-            BlinkyLedTask(daisy::DaisySeed hardware) : Task(hardware, "BL", 100UL) {
+            BlinkyLedTask(daisy::DaisySeed hardware, data::State* state) : Task(hardware, state, "BL", 100UL) {
                 
             }
 
@@ -14,7 +14,7 @@ namespace miku::tasks::hardware {
                 this->ledState = !this->ledState;
                 this->hardware.SetLed(this->ledState);
 
-                this->dataValues["LED_STATE"] = this->ledState ? 1.0f : 0.0f;
+                this->state->LedState = this->ledState;
 
                 Task::Execute();
             }
