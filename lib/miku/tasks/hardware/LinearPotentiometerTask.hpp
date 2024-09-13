@@ -19,7 +19,7 @@ namespace miku::tasks::hardware {
 
                 state->Logger->Debug("LinPot %s - Reading ADC pin %d", this->potState->Code.c_str(), this->potState->PinNumber);
 
-                this->potState->CurrentValue = this->hardware.adc.Get(this->potState->PinNumber);
+                this->potState->CurrentValue = this->hardware.adc.Get(this->potState->ADCIndex);
 
                 state->Logger->Debug("LinPot %s - Read value %d", this->potState->Code.c_str(), this->potState->CurrentValue);
 
@@ -31,8 +31,23 @@ namespace miku::tasks::hardware {
                     this->potState->MinValue = this->potState->CurrentValue;
                 }
 
-                // TODO error correction/averaging
-                this->potState->AvgValue = this->potState->AvgValue + this->potState->AvgValue / this->potState->SampleCount;
+                // store the last 20 samples
+                this->potState->RecentSamples.push_back(this->potState->CurrentValue);
+                if (this->potState->RecentSamples.size() > this->potState->MAX_SAMPLES) {
+                    this->potState->RecentSamples.pop_front();
+                }
+
+                uint32_t sum = std::accumulate(this->potState->RecentSamples.begin(), this->potState->RecentSamples.end(), 0);
+                uint32_t mean = sum / this->potState->RecentSamples.size();
+                this->potState->AvgValue = mean;
+
+                uint32_t sumOfSquares = 0;
+
+                std::for_each(this->potState->RecentSamples.begin(), this->potState->RecentSamples.end(), [&](uint16_t sample) {
+                    sumOfSquares += (sample - mean) * (sample - mean);
+                });
+
+                this->potState->StdDev = sqrt(sumOfSquares / this->potState->RecentSamples.size());
 
                 Task::Execute();
             }

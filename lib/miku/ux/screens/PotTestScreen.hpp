@@ -24,11 +24,11 @@ namespace miku::ux::screens {
 
                 auto pots = this->state->Potentiometers;
 
-                auto screenPot = pots->at(20);
-                auto notePot = pots->at(21);
+                auto screenPot = pots->at(21);
+                auto notePot = pots->at(20);
 
                 char buffer[32];
-                sprintf(buffer, "COD: %s %s", screenPot->Code.c_str(), notePot->Code.c_str());
+                sprintf(buffer, "ID : %s %s", screenPot->Code.c_str(), notePot->Code.c_str());
                 this->GetDisplay()->DrawStringByRow(0, 0, buffer);
 
                 sprintf(buffer, "Cur: %d %d", screenPot->CurrentValue, notePot->CurrentValue);
@@ -43,7 +43,8 @@ namespace miku::ux::screens {
                 sprintf(buffer, "Min: %d %d", screenPot->MinValue, notePot->MinValue);
                 this->GetDisplay()->DrawStringByRow(4, 0, buffer);
 
-                sprintf(buffer, "PIN: %d %d", screenPot->PinNumber, notePot->PinNumber);
+                // display stddev
+                sprintf(buffer, "Std: %d %d", screenPot->StdDev, notePot->StdDev);
                 this->GetDisplay()->DrawStringByRow(5, 0, buffer);
 
                 this->GetDisplay()->RequestInvalidate();

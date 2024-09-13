@@ -49,7 +49,7 @@ namespace miku {
                 this->hardware = hardware;
                 this->hardware.Init();
 
-                this->logger = new utils::Logger(this->hardware, utils::LogLevel::DEBUG, true);
+                this->logger = new utils::Logger(this->hardware, utils::LogLevel::INFO, true);
                 logger->Info("Miku starting up...");
                 this->state->Logger = this->logger;
 
@@ -80,6 +80,7 @@ namespace miku {
                 this->midiHardware = new miku::tasks::hardware::MidiHardware(this->state, hardware, 14, 13);
 
                 ux::MikuOledDisplay mikuDisplay;
+
                 this->display = new ux::Display(hardware, mikuDisplay);
 
                 logger->Info("Building screens");
